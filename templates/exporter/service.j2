@@ -1,0 +1,60 @@
+[Unit]
+Description=Elasticsearch Exporter
+
+Wants=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=10s
+EnvironmentFile=/etc/environment
+
+ExecStop=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker stop %p || true'
+ExecStartPre=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker kill %p || true'
+ExecStartPre=/bin/sh -c '/usr/bin/docker ps -a | /bin/grep %p 1> /dev/null && /usr/bin/docker rm %p || true'
+ExecStartPre=/usr/bin/docker pull {{ elasticsearch_exporter_image }}
+ExecStart=/usr/bin/docker run --rm \
+  --name %p \
+  --hostname %p \
+{% for item in elasticsearch_exporter_default_labels + elasticsearch_exporter_extra_labels %}
+  --label {{ item }} \
+{% endfor %}
+  --env-file /etc/default/elasticsearch-exporter \
+{% if elasticsearch_network | default(False) %}
+  --network {{ elasticsearch_network }} \
+{% endif %}
+{% for item in elasticsearch_exporter_default_volumes + elasticsearch_exporter_extra_volumes %}
+  --volume {{ item }} \
+{% endfor %}
+{% for item in elasticsearch_exporter_default_publish + elasticsearch_exporter_extra_publish %}
+  --publish {{ item }} \
+{% endfor %}
+  --health-cmd 'wget -q --spider http://localhost:9114/metrics' \
+  --health-interval 30s \
+  --health-retries 5 \
+  --health-timeout 10s \
+  {{ elasticsearch_exporter_image }} \
+{% if elasticsearch_exporter_node == 'all' %}
+  --es.all \
+{% else %}
+  --es.node={{ elasticsearch_exporter_node }} \
+{% endif %}
+{% if elasticsearch_exporter_shards %}
+  --es.shards \
+{% endif %}
+{% if elasticsearch_exporter_snapshots %}
+  --es.snapshots \
+{% endif %}
+{% if elasticsearch_exporter_indicies %}
+  --es.indices \
+{% endif %}
+{% if elasticsearch_exporter_indicies_settings %}
+  --es.indices_settings \
+{% endif %}
+{% if elasticsearch_exporter_cluster_settings %}
+  --es.cluster_settings \
+{% endif %}
+  --es.uri=http://elasticsearch:9200
+
+[Install]
+WantedBy=multi-user.target

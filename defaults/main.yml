@@ -1,0 +1,159 @@
+# Standards: 1.2
+---
+# @var elasticsearch_initial_heap:description: Initial heap size
+elasticsearch_initial_heap: 256m
+
+# @var elasticsearch_maximum_heap:description: Maximum heap size
+elasticsearch_maximum_heap: 256m
+
+# @var elasticsearch_node_name:description: Name of this node within cluster
+elasticsearch_node_name:
+
+# @var elasticsearch_cluster_name:description: Name of the cluster to create
+elasticsearch_cluster_name:
+
+# @var elasticsearch_bootstrap_memory_lock:description: Enable memory lock within bootstrap
+elasticsearch_bootstrap_memory_lock: False
+
+# @var elasticsearch_single_node:description: Launch elasticsearch as single node
+elasticsearch_single_node: False
+
+# @var elasticsearch_discovery_seed_hosts:description: List of discovery seed hosts
+# @var elasticsearch_discovery_seed_hosts:example: >
+# elasticsearch_discovery_seed_hosts:
+#   - host01
+#   - host02
+#   - host03
+#   - host04
+#   - host05
+# @end
+elasticsearch_discovery_seed_hosts: []
+
+# @var elasticsearch_initial_master_nodes:description: List of initial master nodes
+# @var elasticsearch_initial_master_nodes:example: >
+# elasticsearch_initial_master_nodes:
+#   - node01
+#   - node02
+#   - node03
+# @end
+elasticsearch_initial_master_nodes: []
+
+# @var elasticsearch_cli_version:description: Version of esctl installed via pip
+elasticsearch_cli_version: latest
+
+# @var elasticsearch_version:description: Version of the elasticsearch image
+elasticsearch_version: 7.9.3
+
+# @var elasticsearch_image:description: Docker image for elasticsearch
+elasticsearch_image: "docker.elastic.co/elasticsearch/elasticsearch-oss:{{ elasticsearch_version }}"
+
+# @var elasticsearch_network:description: Optionally assign this network to container
+elasticsearch_network:
+
+# @var elasticsearch_default_folders:description: List of default folders to create
+elasticsearch_default_folders:
+  - /var/lib/elasticsearch
+
+# @var elasticsearch_extra_folders:description: List of extra folders to create
+# @var elasticsearch_extra_folders:example: >
+# elasticsearch_extra_folders:
+#   - /path/to/host/folder1
+#   - /path/to/host/folder2
+#   - /path/to/host/folder3
+# @end
+elasticsearch_extra_folders: []
+
+# @var elasticsearch_default_publish:description: List of default port publishing for elasticsearch
+elasticsearch_default_publish:
+  - 9200:9200
+
+# @var elasticsearch_extra_publish:description: List of extra port publishing for elasticsearch
+# @var elasticsearch_extra_publish:example: >
+# elasticsearch_extra_publish:
+#   - 127.0.0.1:9000:9000
+# @end
+elasticsearch_extra_publish: []
+
+# @var elasticsearch_default_labels:description: List of default labels to assign to elasticsearch
+elasticsearch_default_labels: []
+
+# @var elasticsearch_extra_labels:description: List of extra labels to assign to elasticsearch
+elasticsearch_extra_labels: []
+
+# @var elasticsearch_default_volumes:description: List of default volumes to mount to elasticsearch
+elasticsearch_default_volumes:
+  - /var/lib/elasticsearch:/usr/share/elasticsearch/data
+
+# @var elasticsearch_extra_volumes:description: List of extra volumes to mount to elasticsearch
+# @var elasticsearch_extra_volumes:example: >
+# elasticsearch_extra_volumes:
+#   - /path/to/host/folder1:/path/within/container1
+#   - /path/to/host/folder2:/path/within/container2
+#   - /path/to/host/folder3:/path/within/container3
+# @end
+elasticsearch_extra_volumes: []
+
+# @var elasticsearch_exporter_enabled:description: Enable the elasticsearch exporter
+elasticsearch_exporter_enabled: True
+
+# @var elasticsearch_exporter_version:description: Version of the elasticsearch exporter image
+elasticsearch_exporter_version: 1.1.0
+
+# @var elasticsearch_exporter_image:description: Docker image for elasticsearch exporter
+elasticsearch_exporter_image: "justwatch/elasticsearch_exporter:{{ elasticsearch_exporter_version }}"
+
+# @var elasticsearch_default_publish:description: List of default port publishing for elasticsearch exporter
+elasticsearch_exporter_default_publish:
+  - 9114:9114
+
+# @var elasticsearch_exporter_extra_publish:description: List of extra port publishing for elasticsearch exporter
+# @var elasticsearch_exporter_extra_publish:example: >
+# elasticsearch_exporter_extra_publish:
+#   - 8080:8080
+#   - 127.0.0.1:9000:9000
+# @end
+elasticsearch_exporter_extra_publish: []
+
+# @var elasticsearch_exporter_default_labels:description: List of default labels to assign to elasticsearch exporter
+elasticsearch_exporter_default_labels: []
+
+# @var elasticsearch_exporter_extra_labels:description: List of extra labels to assign to elasticsearch exporter
+elasticsearch_exporter_extra_labels: []
+
+# @var elasticsearch_exporter_default_volumes:description: List of default volumes to mount to elasticsearch exporter
+# @var elasticsearch_exporter_default_volumes:example: >
+# elasticsearch_exporter_default_volumes:
+#   - /path/to/host/folder1:/path/within/container1
+#   - /path/to/host/folder2:/path/within/container2
+#   - /path/to/host/folder3:/path/within/container3
+# @end
+elasticsearch_exporter_default_volumes: []
+
+# @var elasticsearch_exporter_extra_volumes:description: List of extra volumes to mount to elasticsearch exporter
+# @var elasticsearch_exporter_extra_volumes:example: >
+# elasticsearch_exporter_extra_volumes:
+#   - /path/to/host/folder1:/path/within/container1
+#   - /path/to/host/folder2:/path/within/container2
+#   - /path/to/host/folder3:/path/within/container3
+# @end
+elasticsearch_exporter_extra_volumes: []
+
+# @var elasticsearch_exporter_node:description: Name of the node to export, all for every node
+elasticsearch_exporter_node: all
+
+# @var elasticsearch_exporter_shards:description: Export stats for shards in the cluster
+elasticsearch_exporter_shards: True
+
+# @var elasticsearch_exporter_snapshots:description: Export stats for the cluster snapshots
+elasticsearch_exporter_snapshots: True
+
+# @var elasticsearch_exporter_indicies:description: Export stats for indices in the cluster
+elasticsearch_exporter_indicies: True
+
+# @var elasticsearch_exporter_indicies_settings:description: Export stats for settings of all indices of the cluster
+elasticsearch_exporter_indicies_settings: True
+
+# @var elasticsearch_exporter_cluster_settings:description: Export stats for cluster settings
+elasticsearch_exporter_cluster_settings: True
+
+...

@@ -1,0 +1,66 @@
+# Standards: 1.2
+---
+- name: Install required packages
+  loop:
+    - python3-pip
+  package:
+    name: "{{ item }}"
+    state: present
+  tags:
+    - elasticsearch
+
+- name: Install esctl pip
+  pip:
+    name: esctl
+    state: "{{ elasticsearch_cli_version is defined | ternary('present', 'latest') }}"
+    version: "{{ elasticsearch_cli_version | default(omit) }}"
+  tags:
+    - elasticsearch
+
+- name: Create required directories
+  loop: "{{ elasticsearch_default_folders + elasticsearch_extra_folders }}"
+  file:
+    path: "{{ item }}"
+    owner: "1000"
+    group: "0"
+    recurse: True
+    state: directory
+  tags:
+    - elasticsearch
+
+- name: Write default config
+  notify:
+    - Restart elasticsearch
+  template:
+    src: default.j2
+    dest: /etc/default/elasticsearch
+  tags:
+    - elasticsearch
+
+- name: Write service file
+  notify:
+    - Restart elasticsearch
+  template:
+    src: service.j2
+    dest: /etc/systemd/system/elasticsearch.service
+  tags:
+    - elasticsearch
+
+- name: Start elasticsearch service
+  systemd:
+    name: elasticsearch
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - elasticsearch
+
+- name: Include exporter tasks
+  when: elasticsearch_exporter_enabled | default(False)
+  include: exporter.yml
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+...

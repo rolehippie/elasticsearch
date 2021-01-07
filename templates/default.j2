@@ -1,0 +1,11 @@
+ES_JAVA_OPTS=-Xms{{ elasticsearch_initial_heap }} -Xmx{{ elasticsearch_maximum_heap }}
+
+node.name={{ elasticsearch_node_name }}
+cluster.name={{ elasticsearch_cluster_name }}
+bootstrap.memory_lock={{ elasticsearch_bootstrap_memory_lock | lower }}
+{% if elasticsearch_single_node | default(False) %}
+discovery.type=single-node
+{% else %}
+discovery.seed_hosts={{ elasticsearch_discovery_seed_hosts | join(',') }}
+cluster.initial_master_nodes={{ elasticsearch_initial_master_nodes | join(',') }}
+{% endif %}

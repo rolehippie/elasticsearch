@@ -1,0 +1,34 @@
+# Standards: 1.2
+---
+- name: Write default config
+  notify:
+    - Restart elasticsearch-exporter
+  template:
+    src: exporter/default.j2
+    dest: /etc/default/elasticsearch-exporter
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Write service file
+  notify:
+    - Restart elasticsearch-exporter
+  template:
+    src: exporter/service.j2
+    dest: /etc/systemd/system/elasticsearch-exporter.service
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Start elasticsearch-exporter service
+  systemd:
+    name: elasticsearch-exporter
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+...

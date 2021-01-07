@@ -1,0 +1,43 @@
+[Unit]
+Description=Elasticsearch
+
+Wants=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=10s
+EnvironmentFile=/etc/environment
+
+ExecStop=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker stop %p || true'
+ExecStartPre=/bin/sh -c '/usr/bin/docker ps | /bin/grep %p 1> /dev/null && /usr/bin/docker kill %p || true'
+ExecStartPre=/bin/sh -c '/usr/bin/docker ps -a | /bin/grep %p 1> /dev/null && /usr/bin/docker rm %p || true'
+ExecStartPre=/usr/bin/docker pull {{ elasticsearch_image }}
+ExecStart=/usr/bin/docker run --rm \
+  --name %p \
+  --hostname %p \
+{% for item in elasticsearch_default_labels + elasticsearch_extra_labels %}
+  --label {{ item }} \
+{% endfor %}
+  --env-file /etc/default/elasticsearch \
+{% if elasticsearch_network | default(False) %}
+  --network {{ elasticsearch_network }} \
+{% endif %}
+{% for item in elasticsearch_default_volumes + elasticsearch_extra_volumes %}
+  --volume {{ item }} \
+{% endfor %}
+{% for item in elasticsearch_default_publish + elasticsearch_extra_publish %}
+  --publish {{ item }} \
+{% endfor %}
+  --ulimit nofile=65535:65535 \
+{% if elasticsearch_bootstrap_memory_lock | default(False) %}
+  --ulimit memlock=-1:-1 \
+{% endif %}
+  --health-cmd 'curl -sSf http://localhost:9200/' \
+  --health-interval 30s \
+  --health-retries 5 \
+  --health-timeout 10s \
+  {{ elasticsearch_image }}
+
+[Install]
+WantedBy=multi-user.target
