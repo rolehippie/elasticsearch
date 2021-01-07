@@ -2,6 +2,10 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    elasticsearch_single_node: True
+    elasticsearch_node_name: host01
+    elasticsearch_cluster_name: dummy
   roles:
     - role: elasticsearch
 
