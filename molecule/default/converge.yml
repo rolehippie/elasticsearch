@@ -7,6 +7,7 @@
     elasticsearch_node_name: host01
     elasticsearch_cluster_name: dummy
   roles:
+    - role: docker
     - role: elasticsearch
 
 ...
