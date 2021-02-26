@@ -98,4 +98,34 @@ elasticsearch_repository:
   "7.8": "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
   "6.8": "deb https://artifacts.elastic.co/packages/6.x/apt stable main"
 
+# @var elasticsearch_exporter_enabled:description: Enable the elasticsearch exporter
+elasticsearch_exporter_enabled: True
+
+# @var elasticsearch_exporter_version:description: Version of the release to install
+elasticsearch_exporter_version: 1.1.0
+
+# @var elasticsearch_exporter_download:description: URL to the archive of the release to install
+elasticsearch_exporter_download: "https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v{{ elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64.tar.gz"
+
+# @var elasticsearch_exporter_connection:description: Connection URI to access the Elasticsearch
+elasticsearch_exporter_connection: http://localhost:9200
+
+# @var elasticsearch_exporter_node:description: Name of the node to export, all for every node
+elasticsearch_exporter_node: all
+
+# @var elasticsearch_exporter_shards:description: Export stats for shards in the cluster
+elasticsearch_exporter_shards: True
+
+# @var elasticsearch_exporter_snapshots:description: Export stats for the cluster snapshots
+elasticsearch_exporter_snapshots: True
+
+# @var elasticsearch_exporter_indicies:description: Export stats for indices in the cluster
+elasticsearch_exporter_indicies: True
+
+# @var elasticsearch_exporter_indicies_settings:description: Export stats for settings of all indices of the cluster
+elasticsearch_exporter_indicies_settings: True
+
+# @var elasticsearch_exporter_cluster_settings:description: Export stats for cluster settings
+elasticsearch_exporter_cluster_settings: True
+
 ...

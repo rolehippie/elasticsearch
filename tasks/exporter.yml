@@ -1,0 +1,86 @@
+# Standards: 1.2
+---
+- name: Check existing install
+  register: elasticsearch_exporter_version_check
+  failed_when: False
+  changed_when: False
+  check_mode: False
+  command: /usr/bin/elasticsearch-exporter --version
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Fact version change
+  set_fact:
+    elasticsearch_exporter_version_changed: "{{ elasticsearch_exporter_version_check.rc != 0 or (elasticsearch_exporter_version_check.stderr_lines is defined and elasticsearch_exporter_version not in elasticsearch_exporter_version_check.stderr_lines[0]) | bool }}"
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Download release tarball
+  when: elasticsearch_exporter_version_changed
+  unarchive:
+    src: "{{ elasticsearch_exporter_download }}"
+    dest: /usr/local/src
+    remote_src: True
+    owner: root
+    group: root
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Copy exporter binary
+  when: elasticsearch_exporter_version_changed and not ansible_check_mode
+  notify:
+    - Restart elasticsearch-exporter
+  copy:
+    src: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64/elasticsearch_exporter"
+    dest: /usr/bin/elasticsearch-exporter
+    remote_src: True
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Write default config
+  notify:
+    - Restart elasticsearch-exporter
+  template:
+    src: exporter/default.j2
+    dest: /etc/default/elasticsearch-exporter
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Write service file
+  notify:
+    - Restart elasticsearch-exporter
+  template:
+    src: exporter/service.j2
+    dest: /etc/systemd/system/elasticsearch-exporter.service
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Start elasticsearch-exporter service
+  systemd:
+    name: elasticsearch-exporter
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+- name: Remove install directory
+  file:
+    path: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64"
+    state: absent
+  tags:
+    - elasticsearch
+    - elasticsearch-exporter
+
+...

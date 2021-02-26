@@ -20,6 +20,16 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [elasticsearch_discovery_seed_hosts](#elasticsearch_discovery_seed_hosts)
   * [elasticsearch_discovery_zen_minimum_master_nodes](#elasticsearch_discovery_zen_minimum_master_nodes)
   * [elasticsearch_discovery_zen_ping_unicast_hosts](#elasticsearch_discovery_zen_ping_unicast_hosts)
+  * [elasticsearch_exporter_cluster_settings](#elasticsearch_exporter_cluster_settings)
+  * [elasticsearch_exporter_connection](#elasticsearch_exporter_connection)
+  * [elasticsearch_exporter_download](#elasticsearch_exporter_download)
+  * [elasticsearch_exporter_enabled](#elasticsearch_exporter_enabled)
+  * [elasticsearch_exporter_indicies](#elasticsearch_exporter_indicies)
+  * [elasticsearch_exporter_indicies_settings](#elasticsearch_exporter_indicies_settings)
+  * [elasticsearch_exporter_node](#elasticsearch_exporter_node)
+  * [elasticsearch_exporter_shards](#elasticsearch_exporter_shards)
+  * [elasticsearch_exporter_snapshots](#elasticsearch_exporter_snapshots)
+  * [elasticsearch_exporter_version](#elasticsearch_exporter_version)
   * [elasticsearch_gateway_recover_after_nodes](#elasticsearch_gateway_recover_after_nodes)
   * [elasticsearch_group](#elasticsearch_group)
   * [elasticsearch_http_compression](#elasticsearch_http_compression)
@@ -119,6 +129,108 @@ List of discovery seed hosts, only for Elasticsearch >= 7.0
 
 ```YAML
 elasticsearch_discovery_zen_ping_unicast_hosts: []
+```
+
+### elasticsearch_exporter_cluster_settings
+
+Export stats for cluster settings
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_cluster_settings: true
+```
+
+### elasticsearch_exporter_connection
+
+Connection URI to access the Elasticsearch
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_connection: http://localhost:9200
+```
+
+### elasticsearch_exporter_download
+
+URL to the archive of the release to install
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_download: https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v{{
+  elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version
+  }}.linux-amd64.tar.gz
+```
+
+### elasticsearch_exporter_enabled
+
+Enable the elasticsearch exporter
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_enabled: true
+```
+
+### elasticsearch_exporter_indicies
+
+Export stats for indices in the cluster
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_indicies: true
+```
+
+### elasticsearch_exporter_indicies_settings
+
+Export stats for settings of all indices of the cluster
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_indicies_settings: true
+```
+
+### elasticsearch_exporter_node
+
+Name of the node to export, all for every node
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_node: all
+```
+
+### elasticsearch_exporter_shards
+
+Export stats for shards in the cluster
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_shards: true
+```
+
+### elasticsearch_exporter_snapshots
+
+Export stats for the cluster snapshots
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_snapshots: true
+```
+
+### elasticsearch_exporter_version
+
+Version of the release to install
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_version: 1.1.0
 ```
 
 ### elasticsearch_gateway_recover_after_nodes

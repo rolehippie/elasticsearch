@@ -1,15 +1,21 @@
 # Standards: 1.2
 ---
+- name: Reload elasticsearch
+  systemd:
+    name: elasticsearch
+    state: reloaded
+    daemon_reload: True
+
 - name: Restart elasticsearch
   systemd:
     name: elasticsearch
     state: restarted
     daemon_reload: True
 
-- name: Reload elasticsearch
+- name: Restart elasticsearch-exporter
   systemd:
-    name: elasticsearch
-    state: reloaded
-    daemon_reload: True
+    name: elasticsearch-exporter
+    state: restarted
+    daemon_reload: yes
 
 ...

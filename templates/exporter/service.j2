@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus exporter for Elasticsearch
+After=network-online.target
+
+[Service]
+Restart=always
+EnvironmentFile=/etc/default/elasticsearch-exporter
+ExecStart=/usr/bin/elasticsearch-exporter $ARGS
+
+[Install]
+WantedBy=multi-user.target
