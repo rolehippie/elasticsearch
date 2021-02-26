@@ -1,0 +1,164 @@
+# Standards: 0.1
+---
+- name: Create required group
+  group:
+    name: "{{ elasticsearch_group }}"
+    system: True
+    state: present
+  tags:
+    - elasticsearch
+
+- name: Create required user
+  user:
+    name: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    password: "!"
+    shell: /usr/sbin/nologin
+    home: /var/lib/elasticsearch
+    create_home: False
+    system: True
+    state: present
+  tags:
+    - elasticsearch
+
+- name: Download repo key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    id: 46095ACC8548582C1A2699A9D27D666CD88E42B4
+    state: present
+  tags:
+    - elasticsearch
+
+- name: Add apt repository
+  apt_repository:
+    repo: "{{ elasticsearch_repository[elasticsearch_server_version] }}"
+    filename: elastic
+    update_cache: True
+    state: present
+  tags:
+    - elasticsearch
+
+- name: Pin package version
+  copy:
+    content: |
+      Explantion: Pin added by elasticsearch role
+      Package: elasticsearch
+      Pin: version {{ elasticsearch_server_version }}*
+      Pin-Priority: 1000
+    dest: /etc/apt/preferences.d/elasticsearch
+  tags:
+    - elasticsearch
+
+- name: Install required packages
+  loop:
+    - openjdk-11-jre
+    - "elasticsearch={{ elasticsearch_server_version }}*"
+  package:
+    name: "{{ item }}"
+    state: present
+  environment:
+    JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    ES_PATH_CONF: /etc/elasticsearch
+  tags:
+    - elasticsearch
+
+- name: Create data directory
+  file:
+    path: "{{ elasticsearch_storage_path }}"
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    mode: u=rwX,g=rX,o=
+    state: directory
+  tags:
+    - elasticsearch
+
+- name: Enforce data ownership
+  file:
+    path: "{{ elasticsearch_storage_path }}"
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    recurse: True
+    follow: True
+    mode: u=rwX,g=rX,o=
+  tags:
+    - elasticsearch
+
+- name: Create log directory
+  file:
+    dest: "{{ elasticsearch_logs_path }}"
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    recurse: True
+    mode: u=rwx,g=rx,o=rx
+    state: directory
+  tags:
+    - elasticsearch
+
+- name: Drop role files
+  loop:
+    - roles.yml
+    - role_mapping.yml
+    - users
+    - users_roles
+  file:
+    path: "/etc/elasticsearch/{{ item }}"
+    state: absent
+  tags:
+    - elasticsearch
+
+- name: Write log4j2 config
+  notify:
+    - Restart elasticsearch
+  copy:
+    src: log4j2.properties
+    dest: /etc/elasticsearch/log4j2.properties
+    owner: root
+    group: "{{ elasticsearch_group }}"
+    mode: u=rw,g=rw,o=
+  tags:
+    - elasticsearch
+
+- name: Write elasticsearch config
+  notify:
+    - Restart elasticsearch
+  template:
+    src: config.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    owner: root
+    group: "{{ elasticsearch_group }}"
+    mode: u=rw,g=rw,o=
+  tags:
+    - elasticsearch
+
+- name: Write jvm config
+  notify:
+    - Restart elasticsearch
+  template:
+    src: jvm.j2
+    dest: /etc/elasticsearch/jvm.options
+    owner: root
+    group: "{{ elasticsearch_group }}"
+    mode: u=rw,g=rw,o=
+  tags:
+    - elasticsearch
+
+- name: Write default config
+  notify:
+    - Restart elasticsearch
+  template:
+    src: default.j2
+    dest: /etc/default/elasticsearch
+  tags:
+    - elasticsearch
+
+- name: Start elasticsearch service
+  systemd:
+    name: elasticsearch
+    state: started
+    daemon_reload: True
+    masked: False
+    enabled: True
+  tags:
+    - elasticsearch
+
+...

@@ -1,0 +1,61 @@
+cluster:
+  name: {{ elasticsearch_cluster_name }}
+{% if elasticsearch_server_version is version("7.0", ">=") %}
+  initial_master_nodes: {{ elasticsearch_cluster_initial_master_nodes | to_yaml }}
+{% endif %}
+
+node:
+  name: {{ elasticsearch_node_name }}
+  master: {{ elasticsearch_node_master | lower }}
+  data: {{ elasticsearch_node_data | lower }}
+  ingest: {{ elasticsearch_node_ingest | lower }}
+
+network:
+  host: {{ elasticsearch_network_host }}
+{% if elasticsearch_network_publish_host | default(False) %}
+  publish_host: {{ elasticsearch_network_publish_host }}
+{% endif %}
+
+path:
+  data: {{ elasticsearch_storage_path }}
+  logs: {{ elasticsearch_logs_path }}
+
+bootstrap:
+  memory_lock: {{ elasticsearch_bootstrap_memory_lock | lower }}
+
+discovery:
+{% if elasticsearch_server_version is version("7.0", "<") %}
+  zen:
+    minimum_master_nodes: {{ elasticsearch_discovery_zen_minimum_master_nodes }}
+    ping:
+      unicast:
+        hosts: {{ elasticsearch_discovery_zen_ping_unicast_hosts | to_yaml }}
+{% else %}
+  seed_hosts: {{ elasticsearch_discovery_seed_hosts | to_yaml }}
+{% endif %}
+
+gateway:
+  recover_after_nodes: {{ elasticsearch_gateway_recover_after_nodes }}
+
+action:
+  destructive_requires_name: {{ elasticsearch_action_destructive_requires_name | lower }}
+
+http:
+  port: {{ elasticsearch_http_port }}
+  compression: {{ elasticsearch_http_compression | lower }}
+  cors:
+    enabled: {{ elasticsearch_http_cors_enabled | lower }}
+{% if elasticsearch_http_cors_allow_origin | default(False) %}
+    allow-origin: {{ elasticsearch_http_cors_allow_origin }}
+{% endif %}
+
+xpack:
+  security:
+    enabled: {{ elasticsearch_xpack_security_enabled | lower }}
+
+{% if elasticsearch_indicies_query_bool_max_clause_count | default(False) %}
+indices.query.bool.max_clause_count: {{ elasticsearch_indicies_query_bool_max_clause_count }}
+{% endif %}
+{% if elasticsearch_search_max_buckets | default(False) and elasticsearch_server_version is version("7.0", ">=")  %}
+search.max_buckets: {{ elasticsearch_search_max_buckets }}
+{% endif %}

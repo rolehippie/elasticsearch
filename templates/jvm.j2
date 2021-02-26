@@ -1,0 +1,35 @@
+-Xms{{ elasticsearch_initial_heap_space }}
+-Xmx{{ elasticsearch_maximum_heap_space }}
+
+8-13:-XX:CMSInitiatingOccupancyFraction=75
+8-13:-XX:+UseCMSInitiatingOccupancyOnly
+
+10-13:-XX:-UseCMSInitiatingOccupancyOnly
+11-:-XX:+UseG1GC
+11-:-XX:G1ReservePercent=25
+11-:-XX:InitiatingHeapOccupancyPercent=30
+
+-Des.networkaddress.cache.ttl=60
+-Des.networkaddress.cache.negative.ttl=10
+
+-XX:+AlwaysPreTouch
+-Xss1m
+-Djava.awt.headless=true
+-Dfile.encoding=UTF-8
+-Djna.nosys=true
+-XX:-OmitStackTraceInFastThrow
+
+14-:-XX:+ShowCodeDetailsInExceptionMessages
+
+-Dio.netty.noUnsafe=true
+-Dio.netty.noKeySetOptimization=true
+-Dio.netty.recycler.maxCapacityPerThread=0
+-Dlog4j.shutdownHookEnabled=false
+-Dlog4j2.disable.jmx=true
+-Djava.io.tmpdir=${ES_TMPDIR}
+
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath={{ elasticsearch_storage_path }}
+-XX:ErrorFile={{ elasticsearch_logs_path }}/hs_err_pid%p.log
+
+10-:-XX:UseAVX=1

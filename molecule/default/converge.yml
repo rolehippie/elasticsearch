@@ -1,0 +1,11 @@
+# Standards: 1.2
+---
+- name: Converge
+  hosts: all
+  vars:
+    elasticsearch_node_name: host01
+    elasticsearch_cluster_name: dummy
+  roles:
+    - role: elasticsearch
+
+...

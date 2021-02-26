@@ -1,0 +1,101 @@
+# Standards: 0.1
+---
+# @var elasticsearch_server_version:description: Version of Elasticsearch that gets installed
+elasticsearch_server_version: "6.8"
+
+# @var elasticsearch_cluster_name:description: Name of the cluster
+elasticsearch_cluster_name:
+
+# @var elasticsearch_node_name:description: Name of the node
+elasticsearch_node_name: "{{ ansible_hostname }}"
+
+# @var elasticsearch_node_master:description: Let this node work as a master node
+elasticsearch_node_master: True
+
+# @var elasticsearch_node_data:description: Let this node work as a data node
+elasticsearch_node_data: True
+
+# @var elasticsearch_node_ingest:description: Let this node work as an ingest node
+elasticsearch_node_ingest: True
+
+# @var elasticsearch_node_ingest:description: Bind the server to this port
+elasticsearch_network_host: 0.0.0.0
+
+# @var elasticsearch_node_ingest:description: Publish this binding to cluster members
+elasticsearch_network_publish_host:
+
+# @var elasticsearch_bootstrap_memory_lock:description: Lock the memory on startup
+elasticsearch_bootstrap_memory_lock: False
+
+# @var elasticsearch_discovery_zen_minimum_master_nodes:description: Minimum master nodes, only for Elasticsearch < 7.0
+elasticsearch_discovery_zen_minimum_master_nodes: 1
+
+# @var elasticsearch_discovery_zen_ping_unicast_hosts:description: List of discovery hosts, only for Elasticsearch < 7.0
+elasticsearch_discovery_zen_ping_unicast_hosts: []
+
+# @var elasticsearch_discovery_zen_ping_unicast_hosts:description: List of discovery seed hosts, only for Elasticsearch >= 7.0
+elasticsearch_discovery_seed_hosts: []
+
+# @var elasticsearch_cluster_initial_master_nodes:description: List of initial master nodes, only for Elasticsearch >= 7.0
+elasticsearch_cluster_initial_master_nodes: []
+
+# @var elasticsearch_gateway_recover_after_nodes:description: Block initial recovery after a full cluster restart until N nodes are started
+elasticsearch_gateway_recover_after_nodes: 1
+
+# @var elasticsearch_action_destructive_requires_name:description: Require explicit names when deleting indices
+elasticsearch_action_destructive_requires_name: False
+
+# @var elasticsearch_http_port:description: Define the port for the HTTP interface
+elasticsearch_http_port: 9200
+
+# @var elasticsearch_http_compression:description: Enable compression for HTTP
+elasticsearch_http_compression: True
+
+# @var elasticsearch_http_cors_enabled:description: Enable CORS for HTTP
+elasticsearch_http_cors_enabled: False
+
+# @var elasticsearch_http_cors_allow_origin:description: Define CORS allow origin for HTTP
+elasticsearch_http_cors_allow_origin:
+
+# @var elasticsearch_xpack_security_enabled:description: Enable xpack security
+elasticsearch_xpack_security_enabled: False
+
+# @var elasticsearch_xpack_security_enabled:description: Maximum number of clauses a Lucene BooleanQuery can contain
+elasticsearch_indicies_query_bool_max_clause_count:
+
+# @var elasticsearch_xpack_security_enabled:description: Maximum number of aggregation buckets allowed in a single response
+elasticsearch_search_max_buckets:
+
+# @var elasticsearch_initial_heap_space:description: Represents the initial size of total heap space
+elasticsearch_initial_heap_space: 1g
+
+# @var elasticsearch_maximum_heap_space:description: Represents the maximum size of total heap space
+elasticsearch_maximum_heap_space: 1g
+
+# @var elasticsearch_storage_path:description: Path to the storage directory
+elasticsearch_storage_path: /var/lib/elasticsearch
+
+# @var elasticsearch_logs_path:description: Path to the logs directory
+elasticsearch_logs_path: /var/log/elasticsearch
+
+# @var elasticsearch_group:description: Name of the group owning Elasticsearch
+elasticsearch_group: elasticsearch
+
+# @var elasticsearch_user:description: Name of the user owning Elasticsearch
+elasticsearch_user: elasticsearch
+
+# @var elasticsearch_user:description: Path to the java home environment
+elasticsearch_java_home: /usr/lib/jvm/java-11-openjdk-amd64
+
+# @var elasticsearch_user:description: Automatically restart after an upgrade
+elasticsearch_restart_on_upgrade: True
+
+# @var elasticsearch_user:description: Number of seconds to wait before checking if Elasticsearch started successfully
+elasticsearch_startup_sleep_time: 5
+
+# @var elasticsearch_repository:description: Dict of repositories matching the choosen version
+elasticsearch_repository:
+  "7.8": "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+  "6.8": "deb https://artifacts.elastic.co/packages/6.x/apt stable main"
+
+...
