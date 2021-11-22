@@ -5,14 +5,14 @@
   failed_when: False
   changed_when: False
   check_mode: False
-  command: /usr/bin/elasticsearch-exporter --version
+  shell: /usr/bin/elasticsearch-exporter --version 2>&1
   tags:
     - elasticsearch
     - elasticsearch-exporter
 
 - name: Fact version change
   set_fact:
-    elasticsearch_exporter_version_changed: "{{ elasticsearch_exporter_version_check.rc != 0 or (elasticsearch_exporter_version_check.stderr_lines is defined and elasticsearch_exporter_version not in elasticsearch_exporter_version_check.stderr_lines[0]) | bool }}"
+    elasticsearch_exporter_version_changed: "{{ elasticsearch_exporter_version_check.rc != 0 or (elasticsearch_exporter_version_check.stdout_lines is defined and elasticsearch_exporter_version not in elasticsearch_exporter_version_check.stdout_lines[0]) | bool }}"
   tags:
     - elasticsearch
     - elasticsearch-exporter
