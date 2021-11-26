@@ -158,7 +158,7 @@ URL to the archive of the release to install
 #### Default value
 
 ```YAML
-elasticsearch_exporter_download: https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v{{
+elasticsearch_exporter_download: https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{
   elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version
   }}.linux-amd64.tar.gz
 ```
