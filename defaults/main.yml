@@ -3,6 +3,9 @@
 # @var elasticsearch_server_version:description: Version of Elasticsearch that gets installed
 elasticsearch_server_version: "6.8"
 
+# @var elasticsearch_major_version:description: Major version built via server version variable
+elasticsearch_major_version: "{{ elasticsearch_server_version.split('.')[0] }}"
+
 # @var elasticsearch_cluster_name:description: Name of the cluster
 elasticsearch_cluster_name:
 
@@ -95,8 +98,9 @@ elasticsearch_startup_sleep_time: 5
 
 # @var elasticsearch_repository:description: Dict of repositories matching the choosen version
 elasticsearch_repository:
-  "7.8": "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
-  "6.8": "deb https://artifacts.elastic.co/packages/6.x/apt stable main"
+  "7": "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+  "6": "deb https://artifacts.elastic.co/packages/6.x/apt stable main"
+  "5": "deb https://artifacts.elastic.co/packages/5.x/apt stable main"
 
 # @var elasticsearch_exporter_enabled:description: Enable the elasticsearch exporter
 elasticsearch_exporter_enabled: True

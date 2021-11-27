@@ -31,7 +31,7 @@
 
 - name: Add apt repository
   apt_repository:
-    repo: "{{ elasticsearch_repository[elasticsearch_server_version] }}"
+    repo: "{{ elasticsearch_repository[elasticsearch_major_version] }}"
     filename: elastic
     update_cache: True
     state: present
