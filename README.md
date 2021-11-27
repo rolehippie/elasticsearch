@@ -40,6 +40,7 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [elasticsearch_initial_heap_space](#elasticsearch_initial_heap_space)
   * [elasticsearch_java_home](#elasticsearch_java_home)
   * [elasticsearch_logs_path](#elasticsearch_logs_path)
+  * [elasticsearch_major_version](#elasticsearch_major_version)
   * [elasticsearch_maximum_heap_space](#elasticsearch_maximum_heap_space)
   * [elasticsearch_network_host](#elasticsearch_network_host)
   * [elasticsearch_network_publish_host](#elasticsearch_network_publish_host)
@@ -329,6 +330,16 @@ Path to the logs directory
 elasticsearch_logs_path: /var/log/elasticsearch
 ```
 
+### elasticsearch_major_version
+
+Major version built via server version variable
+
+#### Default value
+
+```YAML
+elasticsearch_major_version: "{{ elasticsearch_server_version.split('.')[0] }}"
+```
+
 ### elasticsearch_maximum_heap_space
 
 Represents the maximum size of total heap space
@@ -403,8 +414,9 @@ Dict of repositories matching the choosen version
 
 ```YAML
 elasticsearch_repository:
-  '7.8': deb https://artifacts.elastic.co/packages/7.x/apt stable main
-  '6.8': deb https://artifacts.elastic.co/packages/6.x/apt stable main
+  '7': deb https://artifacts.elastic.co/packages/7.x/apt stable main
+  '6': deb https://artifacts.elastic.co/packages/6.x/apt stable main
+  '5': deb https://artifacts.elastic.co/packages/5.x/apt stable main
 ```
 
 ### elasticsearch_restart_on_upgrade
