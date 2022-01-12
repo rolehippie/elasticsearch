@@ -169,7 +169,7 @@
 
 - name: Include exporter tasks
   when: elasticsearch_exporter_enabled | default(False)
-  include: exporter.yml
+  include_tasks: exporter.yml
   tags:
     - elasticsearch
     - elasticsearch-exporter
