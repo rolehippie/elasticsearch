@@ -48,6 +48,7 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [elasticsearch_node_ingest](#elasticsearch_node_ingest)
   * [elasticsearch_node_master](#elasticsearch_node_master)
   * [elasticsearch_node_name](#elasticsearch_node_name)
+  * [elasticsearch_openjdk_version](#elasticsearch_openjdk_version)
   * [elasticsearch_repository](#elasticsearch_repository)
   * [elasticsearch_restart_on_upgrade](#elasticsearch_restart_on_upgrade)
   * [elasticsearch_search_max_buckets](#elasticsearch_search_max_buckets)
@@ -404,6 +405,16 @@ Name of the node
 
 ```YAML
 elasticsearch_node_name: '{{ ansible_hostname }}'
+```
+
+### elasticsearch_openjdk_version
+
+Version of OpenJDK to install as part of Elasticsearch
+
+#### Default value
+
+```YAML
+elasticsearch_openjdk_version: 11
 ```
 
 ### elasticsearch_repository
