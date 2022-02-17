@@ -48,14 +48,15 @@ http:
 {% if elasticsearch_http_cors_allow_origin | default(False) %}
     allow-origin: {{ elasticsearch_http_cors_allow_origin }}
 {% endif %}
+{% if elasticsearch_server_version is version("6.0", ">=")  %}
 
 xpack:
   security:
     enabled: {{ elasticsearch_xpack_security_enabled | lower }}
-
+{% endif %}
 {% if elasticsearch_indicies_query_bool_max_clause_count | default(False) %}
 indices.query.bool.max_clause_count: {{ elasticsearch_indicies_query_bool_max_clause_count }}
 {% endif %}
-{% if elasticsearch_search_max_buckets | default(False) and elasticsearch_server_version is version("7.0", ">=")  %}
+{% if elasticsearch_search_max_buckets | default(False) and elasticsearch_server_version is version("7.0", ">=") %}
 search.max_buckets: {{ elasticsearch_search_max_buckets }}
 {% endif %}

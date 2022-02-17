@@ -54,13 +54,13 @@
 
 - name: Install required packages
   loop:
-    - openjdk-11-jre
+    - "openjdk-{{ elasticsearch_openjdk_version }}-jre"
     - "elasticsearch={{ elasticsearch_server_version }}*"
   package:
     name: "{{ item }}"
     state: present
   environment:
-    JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
@@ -113,7 +113,7 @@
   notify:
     - Restart elasticsearch
   copy:
-    src: log4j2.properties
+    src: "{{ elasticsearch_major_version }}/log4j2.properties"
     dest: /etc/elasticsearch/log4j2.properties
     owner: root
     group: "{{ elasticsearch_group }}"

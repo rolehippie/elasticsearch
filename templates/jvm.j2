@@ -26,7 +26,9 @@
 -Dio.netty.recycler.maxCapacityPerThread=0
 -Dlog4j.shutdownHookEnabled=false
 -Dlog4j2.disable.jmx=true
+{% if elasticsearch_server_version is version("6.0", ">=") %}
 -Djava.io.tmpdir=${ES_TMPDIR}
+{% endif %}
 
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath={{ elasticsearch_storage_path }}
