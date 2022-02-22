@@ -49,6 +49,8 @@ Building and improving this Ansible role have been sponsored by my employer **Pr
   * [elasticsearch_node_master](#elasticsearch_node_master)
   * [elasticsearch_node_name](#elasticsearch_node_name)
   * [elasticsearch_openjdk_version](#elasticsearch_openjdk_version)
+  * [elasticsearch_plugins_extra](#elasticsearch_plugins_extra)
+  * [elasticsearch_plugins_general](#elasticsearch_plugins_general)
   * [elasticsearch_repository](#elasticsearch_repository)
   * [elasticsearch_restart_on_upgrade](#elasticsearch_restart_on_upgrade)
   * [elasticsearch_search_max_buckets](#elasticsearch_search_max_buckets)
@@ -415,6 +417,46 @@ Version of OpenJDK to install as part of Elasticsearch
 
 ```YAML
 elasticsearch_openjdk_version: 11
+```
+
+### elasticsearch_plugins_extra
+
+List of extra plugins to install
+
+#### Default value
+
+```YAML
+elasticsearch_plugins_extra: []
+```
+
+#### Example usage
+
+```YAML
+elasticsearch_plugins_extra:
+  - plugin1
+  - plugin2
+  - name: plugin3
+    state: absent
+```
+
+### elasticsearch_plugins_general
+
+List of general plugins to install
+
+#### Default value
+
+```YAML
+elasticsearch_plugins_general: []
+```
+
+#### Example usage
+
+```YAML
+elasticsearch_plugins_general:
+  - plugin1
+  - plugin2
+  - name: plugin3
+    state: absent
 ```
 
 ### elasticsearch_repository

@@ -167,6 +167,37 @@
   tags:
     - elasticsearch
 
+- name: Check installed plugins
+  register: elasticsearch_plugins_list
+  changed_when: False
+  command: /usr/share/elasticsearch/bin/elasticsearch-plugin list
+  tags:
+    - elasticsearch
+
+- name: Install defined plugins
+  loop: "{{ elasticsearch_plugins_general + elasticsearch_plugins_extra }}"
+  when:
+    - elasticsearch_plugins_list.stdout is defined
+    - item not in elasticsearch_plugins_list.stdout
+    - item.state | default('present') == 'present'
+  notify:
+    - Restart elasticsearch
+  command: "/usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ item.name | default(item) }}"
+  tags:
+    - elasticsearch
+
+- name: Remove defined plugins
+  loop: "{{ elasticsearch_plugins_general + elasticsearch_plugins_extra }}"
+  when:
+    - elasticsearch_plugins_list.stdout is defined
+    - item in elasticsearch_plugins_list.stdout
+    - item.state | default('present') == 'absent'
+  notify:
+    - Restart elasticsearch
+  command: "/usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ item.name | default(item) }}"
+  tags:
+    - elasticsearch
+
 - name: Include exporter tasks
   when: elasticsearch_exporter_enabled | default(False)
   include_tasks: exporter.yml

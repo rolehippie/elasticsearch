@@ -136,4 +136,24 @@ elasticsearch_exporter_indicies_settings: True
 # @var elasticsearch_exporter_cluster_settings:description: Export stats for cluster settings
 elasticsearch_exporter_cluster_settings: True
 
+# @var elasticsearch_plugins_general:description: List of general plugins to install
+# @var elasticsearch_plugins_general:example: >
+# elasticsearch_plugins_general:
+#   - plugin1
+#   - plugin2
+#   - name: plugin3
+#     state: absent
+# @end
+elasticsearch_plugins_general: []
+
+# @var elasticsearch_plugins_extra:description: List of extra plugins to install
+# @var elasticsearch_plugins_extra:example: >
+# elasticsearch_plugins_extra:
+#   - plugin1
+#   - plugin2
+#   - name: plugin3
+#     state: absent
+# @end
+elasticsearch_plugins_extra: []
+
 ...
