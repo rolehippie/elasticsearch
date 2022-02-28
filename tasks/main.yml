@@ -171,6 +171,9 @@
   register: elasticsearch_plugins_list
   changed_when: False
   command: /usr/share/elasticsearch/bin/elasticsearch-plugin list
+  environment:
+    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+    ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
 
@@ -183,6 +186,9 @@
   notify:
     - Restart elasticsearch
   command: "/usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ item.name | default(item) }}"
+  environment:
+    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+    ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
 
@@ -195,6 +201,9 @@
   notify:
     - Restart elasticsearch
   command: "/usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ item.name | default(item) }}"
+  environment:
+    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+    ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
 
