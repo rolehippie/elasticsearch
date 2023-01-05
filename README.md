@@ -319,7 +319,7 @@ elasticsearch_initial_heap_space: 1g
 #### Default value
 
 ```YAML
-elasticsearch_java_home: /usr/lib/jvm/java-11-openjdk-amd64
+elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64
 ```
 
 ### elasticsearch_logs_path
@@ -460,15 +460,13 @@ elasticsearch_plugins_general:
 
 ### elasticsearch_repository
 
-Dict of repositories matching the choosen version
+Repository used for installation
 
 #### Default value
 
 ```YAML
-elasticsearch_repository:
-  '7': deb https://artifacts.elastic.co/packages/7.x/apt stable main
-  '6': deb https://artifacts.elastic.co/packages/6.x/apt stable main
-  '5': deb https://artifacts.elastic.co/packages/5.x/apt stable main
+elasticsearch_repository: deb https://artifacts.elastic.co/packages/{{ elasticsearch_major_version
+  }}.x/apt stable main
 ```
 
 ### elasticsearch_restart_on_upgrade

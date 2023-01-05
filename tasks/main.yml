@@ -31,7 +31,7 @@
 
 - name: Add apt repository
   apt_repository:
-    repo: "{{ elasticsearch_repository[elasticsearch_major_version] }}"
+    repo: "{{ elasticsearch_repository }}"
     filename: elastic
     update_cache: True
     state: present
@@ -70,7 +70,7 @@
     name: "{{ item }}"
     state: present
   environment:
-    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+    JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
@@ -179,7 +179,7 @@
   changed_when: False
   command: /usr/share/elasticsearch/bin/elasticsearch-plugin list
   environment:
-    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+    JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
@@ -194,7 +194,7 @@
     - Restart elasticsearch
   command: "/usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ item.name | default(item) }}"
   environment:
-    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+    JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
@@ -209,7 +209,7 @@
     - Restart elasticsearch
   command: "/usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ item.name | default(item) }}"
   environment:
-    JAVA_HOME: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+    JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
