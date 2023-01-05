@@ -6,6 +6,6 @@
     elasticsearch_node_name: host01
     elasticsearch_cluster_name: dummy
   roles:
-    - role: elasticsearch
+    - role: rolehippie.elasticsearch
 
 ...
