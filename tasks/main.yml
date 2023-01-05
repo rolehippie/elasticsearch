@@ -90,8 +90,6 @@
     path: "{{ elasticsearch_storage_path }}"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_group }}"
-    recurse: True
-    follow: True
     mode: u=rwX,g=rX,o=
   tags:
     - elasticsearch
@@ -101,7 +99,6 @@
     dest: "{{ elasticsearch_logs_path }}"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_group }}"
-    recurse: True
     mode: u=rwx,g=rx,o=rx
     state: directory
   tags:
