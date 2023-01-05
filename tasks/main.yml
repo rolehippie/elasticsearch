@@ -52,8 +52,18 @@
   tags:
     - elasticsearch
 
+- name: Enforce man dir
+  file:
+    path: /usr/share/man/man1
+    recurse: True
+    owner: root
+    group: root
+  tags:
+    - elasticsearch
+
 - name: Install required packages
   loop:
+    - ca-certificates-java
     - "openjdk-{{ elasticsearch_openjdk_version }}-jre"
     - "elasticsearch={{ elasticsearch_server_version }}*"
   package:
