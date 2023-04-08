@@ -15,6 +15,7 @@ Building and improving this Ansible role have been sponsored by my current and p
 
 ## Table of content
 
+- [Requirements](#requirements)
 - [Default Variables](#default-variables)
   - [elasticsearch_action_destructive_requires_name](#elasticsearch_action_destructive_requires_name)
   - [elasticsearch_bootstrap_memory_lock](#elasticsearch_bootstrap_memory_lock)
@@ -68,6 +69,11 @@ Building and improving this Ansible role have been sponsored by my current and p
 - [Author](#author)
 
 ---
+
+## Requirements
+
+- Minimum Ansible version: `2.10`
+
 
 ## Default Variables
 
