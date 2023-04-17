@@ -99,8 +99,8 @@ elasticsearch_restart_on_upgrade: True
 # @var elasticsearch_user:description: Number of seconds to wait before checking if Elasticsearch started successfully
 elasticsearch_startup_sleep_time: 5
 
-# @var elasticsearch_repository:description: Repository used for installation
-elasticsearch_repository: "deb https://artifacts.elastic.co/packages/{{ elasticsearch_major_version }}.x/apt stable main"
+# @var elasticsearch_keyring:description: Path for the repository keyring
+elasticsearch_keyring: /usr/share/keyrings/elastic-archive-keyring.gpg
 
 # @var elasticsearch_exporter_enabled:description: Enable the elasticsearch exporter
 elasticsearch_exporter_enabled: True
