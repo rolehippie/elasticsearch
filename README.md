@@ -43,6 +43,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [elasticsearch_indicies_query_bool_max_clause_count](#elasticsearch_indicies_query_bool_max_clause_count)
   - [elasticsearch_initial_heap_space](#elasticsearch_initial_heap_space)
   - [elasticsearch_java_home](#elasticsearch_java_home)
+  - [elasticsearch_keyring](#elasticsearch_keyring)
   - [elasticsearch_logs_path](#elasticsearch_logs_path)
   - [elasticsearch_major_version](#elasticsearch_major_version)
   - [elasticsearch_maximum_heap_space](#elasticsearch_maximum_heap_space)
@@ -55,7 +56,6 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [elasticsearch_openjdk_version](#elasticsearch_openjdk_version)
   - [elasticsearch_plugins_extra](#elasticsearch_plugins_extra)
   - [elasticsearch_plugins_general](#elasticsearch_plugins_general)
-  - [elasticsearch_repository](#elasticsearch_repository)
   - [elasticsearch_restart_on_upgrade](#elasticsearch_restart_on_upgrade)
   - [elasticsearch_search_max_buckets](#elasticsearch_search_max_buckets)
   - [elasticsearch_server_version](#elasticsearch_server_version)
@@ -333,6 +333,16 @@ elasticsearch_initial_heap_space: 1g
 elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64
 ```
 
+### elasticsearch_keyring
+
+Path for the repository keyring
+
+#### Default value
+
+```YAML
+elasticsearch_keyring: /usr/share/keyrings/elastic-archive-keyring.gpg
+```
+
 ### elasticsearch_logs_path
 
 Path to the logs directory
@@ -467,17 +477,6 @@ elasticsearch_plugins_general:
   - plugin2
   - name: plugin3
     state: absent
-```
-
-### elasticsearch_repository
-
-Repository used for installation
-
-#### Default value
-
-```YAML
-elasticsearch_repository: deb https://artifacts.elastic.co/packages/{{ elasticsearch_major_version
-  }}.x/apt stable main
 ```
 
 ### elasticsearch_restart_on_upgrade
