@@ -1,6 +1,6 @@
 # elasticsearch
 
-[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&amp;logoColor=white)](https://github.com/rolehippie/elasticsearch)
+[![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/elasticsearch)
 [![General Workflow](https://github.com/rolehippie/elasticsearch/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/elasticsearch/actions/workflows/general.yml)
 [![Readme Workflow](https://github.com/rolehippie/elasticsearch/actions/workflows/docs.yml/badge.svg)](https://github.com/rolehippie/elasticsearch/actions/workflows/docs.yml)
 [![Galaxy Workflow](https://github.com/rolehippie/elasticsearch/actions/workflows/galaxy.yml/badge.svg)](https://github.com/rolehippie/elasticsearch/actions/workflows/galaxy.yml)
@@ -73,7 +73,6 @@ Building and improving this Ansible role have been sponsored by my current and p
 ## Requirements
 
 - Minimum Ansible version: `2.10`
-
 
 ## Default Variables
 
@@ -172,7 +171,8 @@ URL to the archive of the release to install
 #### Default value
 
 ```YAML
-elasticsearch_exporter_download: https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{
+elasticsearch_exporter_download: 
+  https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{
   elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version
   }}.linux-amd64.tar.gz
 ```
