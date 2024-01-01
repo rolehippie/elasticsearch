@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/rolehippie/elasticsearch/compare/v1.2.0...v1.3.0) (2024-01-01)
+
+
+### Features
+
+* **deps:** update dependency prometheus-community/elasticsearch_exporter to v1.7.0 ([7f9176d](https://github.com/rolehippie/elasticsearch/commit/7f9176d256d94ec0f17961638c0a55607d0b3a8d))
+
 ## [1.2.0](https://github.com/rolehippie/elasticsearch/compare/v1.1.0...v1.2.0) (2023-07-24)
 
 
