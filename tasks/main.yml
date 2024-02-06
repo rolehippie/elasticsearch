@@ -44,7 +44,7 @@
     name: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_group }}"
     password: "!"
-    ansible.builtin.shell: /usr/sbin/nologin
+    shell: /usr/sbin/nologin
     home: /var/lib/elasticsearch
     create_home: False
     system: True
