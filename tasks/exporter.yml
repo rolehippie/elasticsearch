@@ -4,13 +4,13 @@
   failed_when: False
   changed_when: False
   check_mode: False
-  shell: /usr/bin/elasticsearch-exporter --version 2>&1
+  ansible.builtin.shell: /usr/bin/elasticsearch-exporter --version 2>&1
   tags:
     - elasticsearch
     - elasticsearch-exporter
 
 - name: Fact version change
-  set_fact:
+  ansible.builtin.set_fact:
     elasticsearch_exporter_version_changed: "{{ elasticsearch_exporter_version_check.rc != 0 or (elasticsearch_exporter_version_check.stdout_lines is defined and elasticsearch_exporter_version not in elasticsearch_exporter_version_check.stdout_lines[0]) | bool }}"
   tags:
     - elasticsearch
@@ -18,7 +18,7 @@
 
 - name: Download release tarball
   when: elasticsearch_exporter_version_changed
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ elasticsearch_exporter_download }}"
     dest: /usr/local/src
     remote_src: True
@@ -32,7 +32,7 @@
   when: elasticsearch_exporter_version_changed and not ansible_check_mode
   notify:
     - Restart elasticsearch-exporter
-  copy:
+  ansible.builtin.copy:
     src: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64/elasticsearch_exporter"
     dest: /usr/bin/elasticsearch-exporter
     remote_src: True
@@ -46,7 +46,7 @@
 - name: Write default config
   notify:
     - Restart elasticsearch-exporter
-  template:
+  ansible.builtin.template:
     src: exporter/default.j2
     dest: /etc/default/elasticsearch-exporter
     owner: root
@@ -59,7 +59,7 @@
 - name: Write service file
   notify:
     - Restart elasticsearch-exporter
-  template:
+  ansible.builtin.template:
     src: exporter/service.j2
     dest: /etc/systemd/system/elasticsearch-exporter.service
     owner: root
@@ -70,7 +70,7 @@
     - elasticsearch-exporter
 
 - name: Start elasticsearch-exporter service
-  systemd:
+  ansible.builtin.systemd:
     name: elasticsearch-exporter
     state: started
     daemon_reload: True
@@ -81,7 +81,7 @@
     - elasticsearch-exporter
 
 - name: Remove install directory
-  file:
+  ansible.builtin.file:
     path: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64"
     state: absent
   tags:
