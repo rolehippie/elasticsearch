@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.0](https://github.com/rolehippie/elasticsearch/compare/v1.3.0...v2.0.0) (2024-02-12)
+
+
+### Features
+
+* drop support for ubuntu 18.04 ([1e50233](https://github.com/rolehippie/elasticsearch/commit/1e5023356d61a38f25ac8f0eb50abfef0f86f863))
+* used full qualified collection names ([6e5fb0d](https://github.com/rolehippie/elasticsearch/commit/6e5fb0db9b9ea8e71bf2b180cf1aaf6828d1d276))
+
+
+### Bugfixes
+
+* use right attribute for user shell ([835f2b8](https://github.com/rolehippie/elasticsearch/commit/835f2b866971bc5eded40827c8d3c4df8b1a388f))
+
 ## [1.3.0](https://github.com/rolehippie/elasticsearch/compare/v1.2.0...v1.3.0) (2024-01-01)
 
 
