@@ -79,6 +79,7 @@
   tags:
     - elasticsearch
     - elasticsearch-exporter
+    - molecule-idempotence-notest
 
 - name: Remove install directory
   ansible.builtin.file:
