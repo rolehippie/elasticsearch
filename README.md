@@ -549,6 +549,8 @@ elasticsearch_xpack_security_enabled: false
 
 **_elasticsearch-exporter_**
 
+**_molecule-idempotence-notest_**
+
 
 ## Dependencies
 
