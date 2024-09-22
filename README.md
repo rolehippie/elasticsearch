@@ -244,7 +244,7 @@ Version of the release to install
 #### Default value
 
 ```YAML
-elasticsearch_exporter_version: 1.7.0
+elasticsearch_exporter_version: 1.8.0
 ```
 
 ### elasticsearch_gateway_recover_after_nodes
