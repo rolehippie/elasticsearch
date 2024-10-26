@@ -6,9 +6,13 @@ cluster:
 
 node:
   name: {{ elasticsearch_node_name }}
+{% if elasticsearch_server_version is version("7.0", "<") %}
   master: {{ elasticsearch_node_master | lower }}
   data: {{ elasticsearch_node_data | lower }}
   ingest: {{ elasticsearch_node_ingest | lower }}
+{% else %}
+  roles: {{ elasticsearch_node_roles | to_yaml }}
+{% endif %}
 
 network:
   host: {{ elasticsearch_network_host }}
@@ -35,7 +39,7 @@ discovery:
 {% endif %}
 
 gateway:
-  recover_after_nodes: {{ elasticsearch_gateway_recover_after_nodes }}
+  {% if elasticsearch_server_version is version("7.8", "<") %}recover_after_nodes{% else %}recover_after_data_nodes{% endif %}: {{ elasticsearch_gateway_recover_after_nodes }}
 
 action:
   destructive_requires_name: {{ elasticsearch_action_destructive_requires_name | lower }}

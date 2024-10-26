@@ -85,6 +85,7 @@
     state: present
   environment:
     JAVA_HOME: "{{ elasticsearch_java_home }}"
+    ES_JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
@@ -194,6 +195,7 @@
   ansible.builtin.command: /usr/share/elasticsearch/bin/elasticsearch-plugin list
   environment:
     JAVA_HOME: "{{ elasticsearch_java_home }}"
+    ES_JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
@@ -209,6 +211,7 @@
   ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ item.name | default(item) }}"
   environment:
     JAVA_HOME: "{{ elasticsearch_java_home }}"
+    ES_JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch
@@ -224,6 +227,7 @@
   ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ item.name | default(item) }}"
   environment:
     JAVA_HOME: "{{ elasticsearch_java_home }}"
+    ES_JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_PATH_CONF: /etc/elasticsearch
   tags:
     - elasticsearch

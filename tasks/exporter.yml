@@ -33,7 +33,7 @@
   notify:
     - Restart elasticsearch-exporter
   ansible.builtin.copy:
-    src: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64/elasticsearch_exporter"
+    src: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture }}/elasticsearch_exporter"
     dest: /usr/bin/elasticsearch-exporter
     remote_src: True
     owner: root
@@ -83,7 +83,7 @@
 
 - name: Remove install directory
   ansible.builtin.file:
-    path: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64"
+    path: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture }}"
     state: absent
   tags:
     - elasticsearch
