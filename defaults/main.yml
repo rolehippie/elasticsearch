@@ -1,12 +1,12 @@
 ---
 # @var elasticsearch_server_version:description: Version of Elasticsearch that gets installed
-elasticsearch_server_version: "6.8"
+elasticsearch_server_version: "8.15"
 
 # @var elasticsearch_major_version:description: Major version built via server version variable
 elasticsearch_major_version: "{{ elasticsearch_server_version.split('.')[0] }}"
 
 # @var elasticsearch_openjdk_version:description: Version of OpenJDK to install as part of Elasticsearch
-elasticsearch_openjdk_version: 11
+elasticsearch_openjdk_version: 21
 
 # @var elasticsearch_cluster_name:description: Name of the cluster
 elasticsearch_cluster_name:
