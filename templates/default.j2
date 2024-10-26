@@ -1,3 +1,4 @@
-JAVA_HOME={{ elasticsearch_java_home }}
+{% if elasticsearch_major_version is version("7", "<") %}JAVA_HOME{% else %}ES_JAVA_HOME{% endif %}={{ elasticsearch_java_home }}
 RESTART_ON_UPGRADE={{ elasticsearch_restart_on_upgrade | lower }}
 ES_STARTUP_SLEEP_TIME={{ elasticsearch_startup_sleep_time }}
+ES_PATH_CONF=/etc/elasticsearch

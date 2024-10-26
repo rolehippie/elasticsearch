@@ -1,9 +1,12 @@
 ---
 # @var elasticsearch_server_version:description: Version of Elasticsearch that gets installed
-elasticsearch_server_version: "8.15"
+elasticsearch_server_version: "8.15"   # 6.8
 
 # @var elasticsearch_major_version:description: Major version built via server version variable
 elasticsearch_major_version: "{{ elasticsearch_server_version.split('.')[0] }}"
+
+# @var elasticsearch_major_version:description: Architecture of the elasticsearch installation
+elasticsearch_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
 
 # @var elasticsearch_openjdk_version:description: Version of OpenJDK to install as part of Elasticsearch
 elasticsearch_openjdk_version: 21
@@ -23,10 +26,16 @@ elasticsearch_node_data: True
 # @var elasticsearch_node_ingest:description: Let this node work as an ingest node
 elasticsearch_node_ingest: True
 
-# @var elasticsearch_node_ingest:description: Bind the server to this port
+# @var elasticsearch_node_roles:description: List of roles assigned to node, used from 7.x upwards
+elasticsearch_node_roles:
+  - master
+  - data
+  - ingest
+
+# @var elasticsearch_network_host:description: Bind the server to this port
 elasticsearch_network_host: 0.0.0.0
 
-# @var elasticsearch_node_ingest:description: Publish this binding to cluster members
+# @var elasticsearch_network_publish_host:description: Publish this binding to cluster members
 elasticsearch_network_publish_host:
 
 # @var elasticsearch_bootstrap_memory_lock:description: Lock the memory on startup
@@ -90,7 +99,7 @@ elasticsearch_group: elasticsearch
 elasticsearch_user: elasticsearch
 
 # @var elasticsearch_user:description: Path to the java home environment
-elasticsearch_java_home: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64"
+elasticsearch_java_home: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-{{ elasticsearch_architecture }}"
 
 # @var elasticsearch_user:description: Automatically restart after an upgrade
 elasticsearch_restart_on_upgrade: True
@@ -109,7 +118,7 @@ elasticsearch_exporter_enabled: True
 elasticsearch_exporter_version: 1.8.0
 
 # @var elasticsearch_exporter_download:description: URL to the archive of the release to install
-elasticsearch_exporter_download: "https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{ elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-amd64.tar.gz"
+elasticsearch_exporter_download: "https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{ elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture }}.tar.gz"
 
 # @var elasticsearch_exporter_connection:description: Connection URI to access the Elasticsearch
 elasticsearch_exporter_connection: http://localhost:9200
@@ -120,14 +129,14 @@ elasticsearch_exporter_node: all
 # @var elasticsearch_exporter_shards:description: Export stats for shards in the cluster
 elasticsearch_exporter_shards: True
 
-# @var elasticsearch_exporter_snapshots:description: Export stats for the cluster snapshots
-elasticsearch_exporter_snapshots: True
-
 # @var elasticsearch_exporter_indicies:description: Export stats for indices in the cluster
 elasticsearch_exporter_indicies: True
 
 # @var elasticsearch_exporter_indicies_settings:description: Export stats for settings of all indices of the cluster
 elasticsearch_exporter_indicies_settings: True
+
+# @var elasticsearch_exporter_indicies_mappings:description: Export stats for mappings of all indices of the cluster
+elasticsearch_exporter_indicies_mappings: True
 
 # @var elasticsearch_exporter_cluster_settings:description: Export stats for cluster settings
 elasticsearch_exporter_cluster_settings: True

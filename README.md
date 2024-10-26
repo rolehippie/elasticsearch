@@ -18,6 +18,7 @@ Building and improving this Ansible role have been sponsored by my current and p
 - [Requirements](#requirements)
 - [Default Variables](#default-variables)
   - [elasticsearch_action_destructive_requires_name](#elasticsearch_action_destructive_requires_name)
+  - [elasticsearch_architecture](#elasticsearch_architecture)
   - [elasticsearch_bootstrap_memory_lock](#elasticsearch_bootstrap_memory_lock)
   - [elasticsearch_cluster_initial_master_nodes](#elasticsearch_cluster_initial_master_nodes)
   - [elasticsearch_cluster_name](#elasticsearch_cluster_name)
@@ -29,10 +30,10 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [elasticsearch_exporter_download](#elasticsearch_exporter_download)
   - [elasticsearch_exporter_enabled](#elasticsearch_exporter_enabled)
   - [elasticsearch_exporter_indicies](#elasticsearch_exporter_indicies)
+  - [elasticsearch_exporter_indicies_mappings](#elasticsearch_exporter_indicies_mappings)
   - [elasticsearch_exporter_indicies_settings](#elasticsearch_exporter_indicies_settings)
   - [elasticsearch_exporter_node](#elasticsearch_exporter_node)
   - [elasticsearch_exporter_shards](#elasticsearch_exporter_shards)
-  - [elasticsearch_exporter_snapshots](#elasticsearch_exporter_snapshots)
   - [elasticsearch_exporter_version](#elasticsearch_exporter_version)
   - [elasticsearch_gateway_recover_after_nodes](#elasticsearch_gateway_recover_after_nodes)
   - [elasticsearch_group](#elasticsearch_group)
@@ -53,6 +54,7 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [elasticsearch_node_ingest](#elasticsearch_node_ingest)
   - [elasticsearch_node_master](#elasticsearch_node_master)
   - [elasticsearch_node_name](#elasticsearch_node_name)
+  - [elasticsearch_node_roles](#elasticsearch_node_roles)
   - [elasticsearch_openjdk_version](#elasticsearch_openjdk_version)
   - [elasticsearch_plugins_extra](#elasticsearch_plugins_extra)
   - [elasticsearch_plugins_general](#elasticsearch_plugins_general)
@@ -84,6 +86,15 @@ Require explicit names when deleting indices
 
 ```YAML
 elasticsearch_action_destructive_requires_name: false
+```
+
+### elasticsearch_architecture
+
+#### Default value
+
+```YAML
+elasticsearch_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64'
+  }}"
 ```
 
 ### elasticsearch_bootstrap_memory_lock
@@ -174,7 +185,7 @@ URL to the archive of the release to install
 elasticsearch_exporter_download: 
   https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{
   elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version
-  }}.linux-amd64.tar.gz
+  }}.linux-{{ elasticsearch_architecture }}.tar.gz
 ```
 
 ### elasticsearch_exporter_enabled
@@ -195,6 +206,16 @@ Export stats for indices in the cluster
 
 ```YAML
 elasticsearch_exporter_indicies: true
+```
+
+### elasticsearch_exporter_indicies_mappings
+
+Export stats for mappings of all indices of the cluster
+
+#### Default value
+
+```YAML
+elasticsearch_exporter_indicies_mappings: true
 ```
 
 ### elasticsearch_exporter_indicies_settings
@@ -225,16 +246,6 @@ Export stats for shards in the cluster
 
 ```YAML
 elasticsearch_exporter_shards: true
-```
-
-### elasticsearch_exporter_snapshots
-
-Export stats for the cluster snapshots
-
-#### Default value
-
-```YAML
-elasticsearch_exporter_snapshots: true
 ```
 
 ### elasticsearch_exporter_version
@@ -330,7 +341,8 @@ elasticsearch_initial_heap_space: 1g
 #### Default value
 
 ```YAML
-elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-amd64
+elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-{{
+  elasticsearch_architecture }}
 ```
 
 ### elasticsearch_keyring
@@ -355,7 +367,7 @@ elasticsearch_logs_path: /var/log/elasticsearch
 
 ### elasticsearch_major_version
 
-Major version built via server version variable
+Architecture of the elasticsearch installation
 
 #### Default value
 
@@ -375,6 +387,8 @@ elasticsearch_maximum_heap_space: 1g
 
 ### elasticsearch_network_host
 
+Bind the server to this port
+
 #### Default value
 
 ```YAML
@@ -382,6 +396,8 @@ elasticsearch_network_host: 0.0.0.0
 ```
 
 ### elasticsearch_network_publish_host
+
+Publish this binding to cluster members
 
 #### Default value
 
@@ -401,7 +417,7 @@ elasticsearch_node_data: true
 
 ### elasticsearch_node_ingest
 
-Publish this binding to cluster members
+Let this node work as an ingest node
 
 #### Default value
 
@@ -429,6 +445,19 @@ Name of the node
 elasticsearch_node_name: '{{ ansible_hostname }}'
 ```
 
+### elasticsearch_node_roles
+
+List of roles assigned to node, used from 7.x upwards
+
+#### Default value
+
+```YAML
+elasticsearch_node_roles:
+  - master
+  - data
+  - ingest
+```
+
 ### elasticsearch_openjdk_version
 
 Version of OpenJDK to install as part of Elasticsearch
@@ -436,7 +465,7 @@ Version of OpenJDK to install as part of Elasticsearch
 #### Default value
 
 ```YAML
-elasticsearch_openjdk_version: 11
+elasticsearch_openjdk_version: 21
 ```
 
 ### elasticsearch_plugins_extra
@@ -502,7 +531,7 @@ Version of Elasticsearch that gets installed
 #### Default value
 
 ```YAML
-elasticsearch_server_version: '6.8'
+elasticsearch_server_version: '8.15'
 ```
 
 ### elasticsearch_startup_sleep_time
