@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.0](https://github.com/rolehippie/elasticsearch/compare/v2.1.0...v2.2.0) (2024-10-28)
+
+
+### Features
+
+* add compat for latest elasticsearch version ([1baab28](https://github.com/rolehippie/elasticsearch/commit/1baab28ef1f838572f5c928de082737497209f36))
+* upgrade to latest version ([be5746b](https://github.com/rolehippie/elasticsearch/commit/be5746bcac0ff763c02fd4946ef416920d449a5d))
+
 ## [2.1.0](https://github.com/rolehippie/elasticsearch/compare/v2.0.0...v2.1.0) (2024-09-23)
 
 
