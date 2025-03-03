@@ -115,7 +115,7 @@ elasticsearch_exporter_enabled: True
 
 # @var elasticsearch_exporter_version:description: Version of the release to install
 # renovate: datasource=github-releases depName=prometheus-community/elasticsearch_exporter
-elasticsearch_exporter_version: 1.8.0
+elasticsearch_exporter_version: 1.9.0
 
 # @var elasticsearch_exporter_download:description: URL to the archive of the release to install
 elasticsearch_exporter_download: "https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{ elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture }}.tar.gz"
