@@ -1,4 +1,4 @@
-# elasticsearch
+# workspace
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/elasticsearch)
 [![General Workflow](https://github.com/rolehippie/elasticsearch/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/elasticsearch/actions/workflows/general.yml)
@@ -184,8 +184,9 @@ URL to the archive of the release to install
 ```YAML
 elasticsearch_exporter_download: 
   https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{
-  elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version
-  }}.linux-{{ elasticsearch_architecture }}.tar.gz
+  elasticsearch_exporter_version }}/elasticsearch_exporter-{{ 
+  elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture 
+  }}.tar.gz
 ```
 
 ### elasticsearch_exporter_enabled
@@ -341,8 +342,8 @@ elasticsearch_initial_heap_space: 1g
 #### Default value
 
 ```YAML
-elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-{{
-  elasticsearch_architecture }}
+elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version 
+  }}-openjdk-{{ elasticsearch_architecture }}
 ```
 
 ### elasticsearch_keyring
@@ -579,7 +580,6 @@ elasticsearch_xpack_security_enabled: false
 **_elasticsearch-exporter_**
 
 **_molecule-idempotence-notest_**
-
 
 ## Dependencies
 
