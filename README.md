@@ -1,4 +1,4 @@
-# workspace
+# elasticsearch
 
 [![Source Code](https://img.shields.io/badge/github-source%20code-blue?logo=github&logoColor=white)](https://github.com/rolehippie/elasticsearch)
 [![General Workflow](https://github.com/rolehippie/elasticsearch/actions/workflows/general.yml/badge.svg)](https://github.com/rolehippie/elasticsearch/actions/workflows/general.yml)
@@ -129,6 +129,8 @@ elasticsearch_cluster_name:
 
 ### elasticsearch_discovery_seed_hosts
 
+List of discovery seed hosts, only for Elasticsearch >= 7.0
+
 #### Default value
 
 ```YAML
@@ -147,7 +149,7 @@ elasticsearch_discovery_zen_minimum_master_nodes: 1
 
 ### elasticsearch_discovery_zen_ping_unicast_hosts
 
-List of discovery seed hosts, only for Elasticsearch >= 7.0
+List of discovery hosts, only for Elasticsearch < 7.0
 
 #### Default value
 
@@ -321,6 +323,8 @@ elasticsearch_http_port: 9200
 
 ### elasticsearch_indicies_query_bool_max_clause_count
 
+Maximum number of clauses a Lucene BooleanQuery can contain
+
 #### Default value
 
 ```YAML
@@ -338,6 +342,8 @@ elasticsearch_initial_heap_space: 1g
 ```
 
 ### elasticsearch_java_home
+
+Path to the java home environment
 
 #### Default value
 
@@ -511,6 +517,8 @@ elasticsearch_plugins_general:
 
 ### elasticsearch_restart_on_upgrade
 
+Automatically restart after an upgrade
+
 #### Default value
 
 ```YAML
@@ -518,6 +526,8 @@ elasticsearch_restart_on_upgrade: true
 ```
 
 ### elasticsearch_search_max_buckets
+
+Maximum number of aggregation buckets allowed in a single response
 
 #### Default value
 
@@ -537,6 +547,8 @@ elasticsearch_server_version: '8.15'
 
 ### elasticsearch_startup_sleep_time
 
+Number of seconds to wait before checking if Elasticsearch started successfully
+
 #### Default value
 
 ```YAML
@@ -555,7 +567,7 @@ elasticsearch_storage_path: /var/lib/elasticsearch
 
 ### elasticsearch_user
 
-Number of seconds to wait before checking if Elasticsearch started successfully
+Name of the user owning Elasticsearch
 
 #### Default value
 
@@ -565,7 +577,7 @@ elasticsearch_user: elasticsearch
 
 ### elasticsearch_xpack_security_enabled
 
-Maximum number of aggregation buckets allowed in a single response
+Enable xpack security
 
 #### Default value
 

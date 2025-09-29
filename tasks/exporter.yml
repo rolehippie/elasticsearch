@@ -1,9 +1,9 @@
 ---
 - name: Check existing install
   register: elasticsearch_exporter_version_check
-  failed_when: False
-  changed_when: False
-  check_mode: False
+  failed_when: false
+  changed_when: false
+  check_mode: false
   ansible.builtin.shell: /usr/bin/elasticsearch-exporter --version 2>&1
   tags:
     - elasticsearch
@@ -17,11 +17,12 @@
     - elasticsearch-exporter
 
 - name: Download release tarball
-  when: elasticsearch_exporter_version_changed
+  when:
+    - elasticsearch_exporter_version_changed
   ansible.builtin.unarchive:
     src: "{{ elasticsearch_exporter_download }}"
     dest: /usr/local/src
-    remote_src: True
+    remote_src: true
     owner: root
     group: root
   tags:
@@ -29,13 +30,15 @@
     - elasticsearch-exporter
 
 - name: Copy exporter binary
-  when: elasticsearch_exporter_version_changed and not ansible_check_mode
+  when:
+    - elasticsearch_exporter_version_changed
+    - not ansible_check_mode
   notify:
     - Restart elasticsearch-exporter
   ansible.builtin.copy:
     src: "/usr/local/src/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture }}/elasticsearch_exporter"
     dest: /usr/bin/elasticsearch-exporter
-    remote_src: True
+    remote_src: true
     owner: root
     group: root
     mode: u=rwx,g=rx,o=rx
@@ -73,9 +76,9 @@
   ansible.builtin.systemd:
     name: elasticsearch-exporter
     state: started
-    daemon_reload: True
-    masked: False
-    enabled: True
+    daemon_reload: true
+    masked: false
+    enabled: true
   tags:
     - elasticsearch
     - elasticsearch-exporter

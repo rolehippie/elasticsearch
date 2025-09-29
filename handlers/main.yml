@@ -3,18 +3,18 @@
   ansible.builtin.systemd:
     name: elasticsearch
     state: reloaded
-    daemon_reload: True
+    daemon_reload: true
 
 - name: Restart elasticsearch
   ansible.builtin.systemd:
     name: elasticsearch
     state: restarted
-    daemon_reload: True
+    daemon_reload: true
 
 - name: Restart elasticsearch-exporter
   ansible.builtin.systemd:
     name: elasticsearch-exporter
     state: restarted
-    daemon_reload: yes
+    daemon_reload: true
 
 ...

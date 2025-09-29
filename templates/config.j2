@@ -16,7 +16,7 @@ node:
 
 network:
   host: {{ elasticsearch_network_host }}
-{% if elasticsearch_network_publish_host | default(False) %}
+{% if elasticsearch_network_publish_host | default(false) %}
   publish_host: {{ elasticsearch_network_publish_host }}
 {% endif %}
 
@@ -49,7 +49,7 @@ http:
   compression: {{ elasticsearch_http_compression | lower }}
   cors:
     enabled: {{ elasticsearch_http_cors_enabled | lower }}
-{% if elasticsearch_http_cors_allow_origin | default(False) %}
+{% if elasticsearch_http_cors_allow_origin | default(false) %}
     allow-origin: {{ elasticsearch_http_cors_allow_origin }}
 {% endif %}
 {% if elasticsearch_server_version is version("6.0", ">=")  %}
@@ -58,9 +58,9 @@ xpack:
   security:
     enabled: {{ elasticsearch_xpack_security_enabled | lower }}
 {% endif %}
-{% if elasticsearch_indicies_query_bool_max_clause_count | default(False) %}
+{% if elasticsearch_indicies_query_bool_max_clause_count | default(false) %}
 indices.query.bool.max_clause_count: {{ elasticsearch_indicies_query_bool_max_clause_count }}
 {% endif %}
-{% if elasticsearch_search_max_buckets | default(False) and elasticsearch_server_version is version("7.0", ">=") %}
+{% if elasticsearch_search_max_buckets | default(false) and elasticsearch_server_version is version("7.0", ">=") %}
 search.max_buckets: {{ elasticsearch_search_max_buckets }}
 {% endif %}

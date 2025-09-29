@@ -10,15 +10,35 @@
   ansible.builtin.apt_repository:
     repo: "deb https://artifacts.elastic.co/packages/{{ elasticsearch_major_version }}.x/apt stable main"
     filename: elastic
-    update_cache: False
+    update_cache: false
     state: absent
   tags:
     - elasticsearch
 
 - name: Download repo key
-  ansible.builtin.shell:
-    cmd: "curl -sSL 'https://artifacts.elastic.co/GPG-KEY-elasticsearch' | gpg --dearmor --output {{ elasticsearch_keyring }}"
-    creates: "{{ elasticsearch_keyring }}"
+  register: elasticsearch_key_download
+  ansible.builtin.get_url:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    dest: "{{ elasticsearch_keyring }}.asc"
+    mode: u=rw,g=r,o=r
+    force: true
+  tags:
+    - elasticsearch
+
+- name: Check repo key
+  register: elasticsearch_key_status
+  ansible.builtin.stat:
+    path: "{{ elasticsearch_keyring }}"
+  tags:
+    - elasticsearch
+
+- name: Dearmor repo key
+  when:
+    - elasticsearch_key_download.changed or not elasticsearch_key_status.stat.exists
+  register: elasticsearch_key_convert
+  changed_when: elasticsearch_key_convert.rc == 0
+  ansible.builtin.command:
+    cmd: "gpg --dearmor -o {{ elasticsearch_keyring }} {{ elasticsearch_keyring }}.asc"
   tags:
     - elasticsearch
 
@@ -26,7 +46,7 @@
   ansible.builtin.apt_repository:
     repo: "deb [signed-by={{ elasticsearch_keyring }}] https://artifacts.elastic.co/packages/{{ elasticsearch_major_version }}.x/apt stable main"
     filename: elastic
-    update_cache: True
+    update_cache: true
     state: present
   tags:
     - elasticsearch
@@ -34,7 +54,7 @@
 - name: Create required group
   ansible.builtin.group:
     name: "{{ elasticsearch_group }}"
-    system: True
+    system: true
     state: present
   tags:
     - elasticsearch
@@ -46,8 +66,8 @@
     password: "!"
     shell: /usr/sbin/nologin
     home: /var/lib/elasticsearch
-    create_home: False
-    system: True
+    create_home: false
+    system: true
     state: present
   tags:
     - elasticsearch
@@ -63,15 +83,6 @@
     owner: root
     group: root
     mode: u=rw,g=r,o=r
-  tags:
-    - elasticsearch
-
-- name: Enforce man dir
-  ansible.builtin.file:
-    path: /usr/share/man/man1
-    recurse: True
-    owner: root
-    group: root
   tags:
     - elasticsearch
 
@@ -183,15 +194,15 @@
   ansible.builtin.systemd:
     name: elasticsearch
     state: started
-    daemon_reload: True
-    masked: False
-    enabled: True
+    daemon_reload: true
+    masked: false
+    enabled: true
   tags:
     - elasticsearch
 
 - name: Check installed plugins
   register: elasticsearch_plugins_list
-  changed_when: False
+  changed_when: false
   ansible.builtin.command: /usr/share/elasticsearch/bin/elasticsearch-plugin list
   environment:
     JAVA_HOME: "{{ elasticsearch_java_home }}"
@@ -205,7 +216,7 @@
   when:
     - elasticsearch_plugins_list.stdout is defined
     - item not in elasticsearch_plugins_list.stdout
-    - item.state | default('present') == 'present'
+    - ('present' if item.state is not defined else item.state) == 'present'
   notify:
     - Restart elasticsearch
   ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ item.name | default(item) }}"
@@ -221,7 +232,7 @@
   when:
     - elasticsearch_plugins_list.stdout is defined
     - item in elasticsearch_plugins_list.stdout
-    - item.state | default('present') == 'absent'
+    - ('present' if item.state is not defined else item.state) == 'absent'
   notify:
     - Restart elasticsearch
   ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ item.name | default(item) }}"
@@ -233,7 +244,7 @@
     - elasticsearch
 
 - name: Include exporter tasks
-  when: elasticsearch_exporter_enabled | default(False)
+  when: elasticsearch_exporter_enabled | default(false)
   ansible.builtin.include_tasks: exporter.yml
   tags:
     - elasticsearch

@@ -1,6 +1,6 @@
 ---
 # @var elasticsearch_server_version:description: Version of Elasticsearch that gets installed
-elasticsearch_server_version: "8.15"   # 6.8
+elasticsearch_server_version: "8.15"
 
 # @var elasticsearch_major_version:description: Major version built via server version variable
 elasticsearch_major_version: "{{ elasticsearch_server_version.split('.')[0] }}"
@@ -18,13 +18,13 @@ elasticsearch_cluster_name:
 elasticsearch_node_name: "{{ ansible_hostname }}"
 
 # @var elasticsearch_node_master:description: Let this node work as a master node
-elasticsearch_node_master: True
+elasticsearch_node_master: true
 
 # @var elasticsearch_node_data:description: Let this node work as a data node
-elasticsearch_node_data: True
+elasticsearch_node_data: true
 
 # @var elasticsearch_node_ingest:description: Let this node work as an ingest node
-elasticsearch_node_ingest: True
+elasticsearch_node_ingest: true
 
 # @var elasticsearch_node_roles:description: List of roles assigned to node, used from 7.x upwards
 elasticsearch_node_roles:
@@ -39,7 +39,7 @@ elasticsearch_network_host: 0.0.0.0
 elasticsearch_network_publish_host:
 
 # @var elasticsearch_bootstrap_memory_lock:description: Lock the memory on startup
-elasticsearch_bootstrap_memory_lock: False
+elasticsearch_bootstrap_memory_lock: false
 
 # @var elasticsearch_discovery_zen_minimum_master_nodes:description: Minimum master nodes, only for Elasticsearch < 7.0
 elasticsearch_discovery_zen_minimum_master_nodes: 1
@@ -47,7 +47,7 @@ elasticsearch_discovery_zen_minimum_master_nodes: 1
 # @var elasticsearch_discovery_zen_ping_unicast_hosts:description: List of discovery hosts, only for Elasticsearch < 7.0
 elasticsearch_discovery_zen_ping_unicast_hosts: []
 
-# @var elasticsearch_discovery_zen_ping_unicast_hosts:description: List of discovery seed hosts, only for Elasticsearch >= 7.0
+# @var elasticsearch_discovery_seed_hosts:description: List of discovery seed hosts, only for Elasticsearch >= 7.0
 elasticsearch_discovery_seed_hosts: []
 
 # @var elasticsearch_cluster_initial_master_nodes:description: List of initial master nodes, only for Elasticsearch >= 7.0
@@ -57,27 +57,27 @@ elasticsearch_cluster_initial_master_nodes: []
 elasticsearch_gateway_recover_after_nodes: 1
 
 # @var elasticsearch_action_destructive_requires_name:description: Require explicit names when deleting indices
-elasticsearch_action_destructive_requires_name: False
+elasticsearch_action_destructive_requires_name: false
 
 # @var elasticsearch_http_port:description: Define the port for the HTTP interface
 elasticsearch_http_port: 9200
 
 # @var elasticsearch_http_compression:description: Enable compression for HTTP
-elasticsearch_http_compression: True
+elasticsearch_http_compression: true
 
 # @var elasticsearch_http_cors_enabled:description: Enable CORS for HTTP
-elasticsearch_http_cors_enabled: False
+elasticsearch_http_cors_enabled: false
 
 # @var elasticsearch_http_cors_allow_origin:description: Define CORS allow origin for HTTP
 elasticsearch_http_cors_allow_origin:
 
 # @var elasticsearch_xpack_security_enabled:description: Enable xpack security
-elasticsearch_xpack_security_enabled: False
+elasticsearch_xpack_security_enabled: false
 
-# @var elasticsearch_xpack_security_enabled:description: Maximum number of clauses a Lucene BooleanQuery can contain
+# @var elasticsearch_indicies_query_bool_max_clause_count:description: Maximum number of clauses a Lucene BooleanQuery can contain
 elasticsearch_indicies_query_bool_max_clause_count:
 
-# @var elasticsearch_xpack_security_enabled:description: Maximum number of aggregation buckets allowed in a single response
+# @var elasticsearch_search_max_buckets:description: Maximum number of aggregation buckets allowed in a single response
 elasticsearch_search_max_buckets:
 
 # @var elasticsearch_initial_heap_space:description: Represents the initial size of total heap space
@@ -98,20 +98,20 @@ elasticsearch_group: elasticsearch
 # @var elasticsearch_user:description: Name of the user owning Elasticsearch
 elasticsearch_user: elasticsearch
 
-# @var elasticsearch_user:description: Path to the java home environment
+# @var elasticsearch_java_home:description: Path to the java home environment
 elasticsearch_java_home: "/usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-{{ elasticsearch_architecture }}"
 
-# @var elasticsearch_user:description: Automatically restart after an upgrade
-elasticsearch_restart_on_upgrade: True
+# @var elasticsearch_restart_on_upgrade:description: Automatically restart after an upgrade
+elasticsearch_restart_on_upgrade: true
 
-# @var elasticsearch_user:description: Number of seconds to wait before checking if Elasticsearch started successfully
+# @var elasticsearch_startup_sleep_time:description: Number of seconds to wait before checking if Elasticsearch started successfully
 elasticsearch_startup_sleep_time: 5
 
 # @var elasticsearch_keyring:description: Path for the repository keyring
 elasticsearch_keyring: /usr/share/keyrings/elastic-archive-keyring.gpg
 
 # @var elasticsearch_exporter_enabled:description: Enable the elasticsearch exporter
-elasticsearch_exporter_enabled: True
+elasticsearch_exporter_enabled: true
 
 # @var elasticsearch_exporter_version:description: Version of the release to install
 # renovate: datasource=github-releases depName=prometheus-community/elasticsearch_exporter
@@ -127,19 +127,19 @@ elasticsearch_exporter_connection: http://localhost:9200
 elasticsearch_exporter_node: all
 
 # @var elasticsearch_exporter_shards:description: Export stats for shards in the cluster
-elasticsearch_exporter_shards: True
+elasticsearch_exporter_shards: true
 
 # @var elasticsearch_exporter_indicies:description: Export stats for indices in the cluster
-elasticsearch_exporter_indicies: True
+elasticsearch_exporter_indicies: true
 
 # @var elasticsearch_exporter_indicies_settings:description: Export stats for settings of all indices of the cluster
-elasticsearch_exporter_indicies_settings: True
+elasticsearch_exporter_indicies_settings: true
 
 # @var elasticsearch_exporter_indicies_mappings:description: Export stats for mappings of all indices of the cluster
-elasticsearch_exporter_indicies_mappings: True
+elasticsearch_exporter_indicies_mappings: true
 
 # @var elasticsearch_exporter_cluster_settings:description: Export stats for cluster settings
-elasticsearch_exporter_cluster_settings: True
+elasticsearch_exporter_cluster_settings: true
 
 # @var elasticsearch_plugins_general:description: List of general plugins to install
 # @var elasticsearch_plugins_general:example: >
