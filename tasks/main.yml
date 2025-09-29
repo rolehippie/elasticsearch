@@ -215,11 +215,14 @@
   loop: "{{ elasticsearch_plugins_general + elasticsearch_plugins_extra }}"
   when:
     - elasticsearch_plugins_list.stdout is defined
-    - item not in elasticsearch_plugins_list.stdout
+    - (item if item.name is not defined else item.name) not in elasticsearch_plugins_list.stdout
     - ('present' if item.state is not defined else item.state) == 'present'
   notify:
     - Restart elasticsearch
-  ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ item.name | default(item) }}"
+  register: elasticsearch_plugin_install
+  changed_when: "'Installed' in elasticsearch_plugin_install.stdout"
+  failed_when: elasticsearch_plugin_install.rc > 0
+  ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin install -b {{ item if item.name is not defined else item.name }}"
   environment:
     JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_JAVA_HOME: "{{ elasticsearch_java_home }}"
@@ -231,11 +234,14 @@
   loop: "{{ elasticsearch_plugins_general + elasticsearch_plugins_extra }}"
   when:
     - elasticsearch_plugins_list.stdout is defined
-    - item in elasticsearch_plugins_list.stdout
+    - (item if item.name is not defined else item.name) in elasticsearch_plugins_list.stdout
     - ('present' if item.state is not defined else item.state) == 'absent'
   notify:
     - Restart elasticsearch
-  ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ item.name | default(item) }}"
+  register: elasticsearch_plugin_remove
+  changed_when: "'removing' in elasticsearch_plugin_remove.stdout"
+  failed_when: elasticsearch_plugin_remove.rc > 0 and elasticsearch_plugin_remove.rc != 78
+  ansible.builtin.command: "/usr/share/elasticsearch/bin/elasticsearch-plugin remove {{ item if item.name is not defined else item.name }}"
   environment:
     JAVA_HOME: "{{ elasticsearch_java_home }}"
     ES_JAVA_HOME: "{{ elasticsearch_java_home }}"
