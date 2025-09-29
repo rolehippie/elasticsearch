@@ -65,6 +65,8 @@ Building and improving this Ansible role have been sponsored by my current and p
   - [elasticsearch_storage_path](#elasticsearch_storage_path)
   - [elasticsearch_user](#elasticsearch_user)
   - [elasticsearch_xpack_security_enabled](#elasticsearch_xpack_security_enabled)
+  - [elasticsearch_xpack_security_http_ssl_enabled](#elasticsearch_xpack_security_http_ssl_enabled)
+  - [elasticsearch_xpack_security_transport_ssl_enabled](#elasticsearch_xpack_security_transport_ssl_enabled)
 - [Discovered Tags](#discovered-tags)
 - [Dependencies](#dependencies)
 - [License](#license)
@@ -583,6 +585,26 @@ Enable xpack security
 
 ```YAML
 elasticsearch_xpack_security_enabled: false
+```
+
+### elasticsearch_xpack_security_http_ssl_enabled
+
+Enable xpack security http ssl
+
+#### Default value
+
+```YAML
+elasticsearch_xpack_security_http_ssl_enabled: false
+```
+
+### elasticsearch_xpack_security_transport_ssl_enabled
+
+Enable xpack security transport ssl
+
+#### Default value
+
+```YAML
+elasticsearch_xpack_security_transport_ssl_enabled: false
 ```
 
 ## Discovered Tags

@@ -74,6 +74,12 @@ elasticsearch_http_cors_allow_origin:
 # @var elasticsearch_xpack_security_enabled:description: Enable xpack security
 elasticsearch_xpack_security_enabled: false
 
+# @var elasticsearch_xpack_security_transport_ssl_enabled:description: Enable xpack security transport ssl
+elasticsearch_xpack_security_transport_ssl_enabled: false
+
+# @var elasticsearch_xpack_security_http_ssl_enabled:description: Enable xpack security http ssl
+elasticsearch_xpack_security_http_ssl_enabled: false
+
 # @var elasticsearch_indicies_query_bool_max_clause_count:description: Maximum number of clauses a Lucene BooleanQuery can contain
 elasticsearch_indicies_query_bool_max_clause_count:
 

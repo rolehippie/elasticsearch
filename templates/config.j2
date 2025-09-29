@@ -57,6 +57,12 @@ http:
 xpack:
   security:
     enabled: {{ elasticsearch_xpack_security_enabled | lower }}
+    transport:
+      ssl:
+        enabled: {{ elasticsearch_xpack_security_transport_ssl_enabled | lower }}
+    http:
+      ssl:
+        enabled: {{ elasticsearch_xpack_security_http_ssl_enabled | lower }}
 {% endif %}
 {% if elasticsearch_indicies_query_bool_max_clause_count | default(false) %}
 indices.query.bool.max_clause_count: {{ elasticsearch_indicies_query_bool_max_clause_count }}
