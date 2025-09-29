@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.4.0](https://github.com/rolehippie/elasticsearch/compare/v2.3.0...v2.4.0) (2025-09-29)
+
+
+### Features
+
+* apply new repo structure and update linting and integrate noble ([aa0980e](https://github.com/rolehippie/elasticsearch/commit/aa0980e20a3b2b8045885fcd90ccd9bf0c09ff74))
+
+
+### Bugfixes
+
+* add xpack options to get service working ([6ed1feb](https://github.com/rolehippie/elasticsearch/commit/6ed1feb07e75c8cb13147a47d1937e4db3e99841))
+* properly handle changes for plugin install/remove ([82e74cb](https://github.com/rolehippie/elasticsearch/commit/82e74cb3cee6cd43f04a905c935253eb75b25930))
+
 ## [2.3.0](https://github.com/rolehippie/elasticsearch/compare/v2.2.0...v2.3.0) (2025-03-17)
 
 
