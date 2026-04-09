@@ -95,8 +95,7 @@ elasticsearch_action_destructive_requires_name: false
 #### Default value
 
 ```YAML
-elasticsearch_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64'
-  }}"
+elasticsearch_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
 ```
 
 ### elasticsearch_bootstrap_memory_lock
@@ -186,11 +185,7 @@ URL to the archive of the release to install
 #### Default value
 
 ```YAML
-elasticsearch_exporter_download: 
-  https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{
-  elasticsearch_exporter_version }}/elasticsearch_exporter-{{ 
-  elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture 
-  }}.tar.gz
+elasticsearch_exporter_download: https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v{{ elasticsearch_exporter_version }}/elasticsearch_exporter-{{ elasticsearch_exporter_version }}.linux-{{ elasticsearch_architecture }}.tar.gz
 ```
 
 ### elasticsearch_exporter_enabled
@@ -350,8 +345,7 @@ Path to the java home environment
 #### Default value
 
 ```YAML
-elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version 
-  }}-openjdk-{{ elasticsearch_architecture }}
+elasticsearch_java_home: /usr/lib/jvm/java-{{ elasticsearch_openjdk_version }}-openjdk-{{ elasticsearch_architecture }}
 ```
 
 ### elasticsearch_keyring
