@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.0](https://github.com/rolehippie/elasticsearch/compare/v2.7.0...v2.8.0) (2026-08-10)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-doctor to v8.4.0 ([#60](https://github.com/rolehippie/elasticsearch/issues/60)) ([0c56c59](https://github.com/rolehippie/elasticsearch/commit/0c56c597d376cf3532e77be0cb40131a949fa111))
+* **patch:** update dependency python to v3.14.7 ([#58](https://github.com/rolehippie/elasticsearch/issues/58)) ([25b8293](https://github.com/rolehippie/elasticsearch/commit/25b8293f217e78fb34f6817b6999bc33d91dac00))
+
 ## [2.7.0](https://github.com/rolehippie/elasticsearch/compare/v2.6.0...v2.7.0) (2026-07-27)
 
 ## [2.6.0](https://github.com/rolehippie/elasticsearch/compare/v2.5.0...v2.6.0) (2026-07-13)
