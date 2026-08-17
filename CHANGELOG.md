@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.9.0](https://github.com/rolehippie/elasticsearch/compare/v2.8.0...v2.9.0) (2026-08-17)
+
+### Dependencies
+
+* **minor:** update dependency pipx:ansible-lint to v26.8.0 ([#63](https://github.com/rolehippie/elasticsearch/issues/63)) ([a9a0cee](https://github.com/rolehippie/elasticsearch/commit/a9a0cee5bc0b329c2f8f251ce1060158b59d79b2))
+* **patch:** update dependency pipx:ansible-core to v2.21.3 ([#61](https://github.com/rolehippie/elasticsearch/issues/61)) ([d924f60](https://github.com/rolehippie/elasticsearch/commit/d924f60a804554f6b4813d2f45985cc9260ca2e2))
+* **patch:** update dependency pre-commit to v4.6.2 ([#62](https://github.com/rolehippie/elasticsearch/issues/62)) ([568f04b](https://github.com/rolehippie/elasticsearch/commit/568f04b4bdcf3b596bcf117df494b244cdc1bf18))
+
 ## [2.8.0](https://github.com/rolehippie/elasticsearch/compare/v2.7.0...v2.8.0) (2026-08-10)
 
 ### Dependencies
