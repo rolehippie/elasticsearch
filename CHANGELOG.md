@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.10.0](https://github.com/rolehippie/elasticsearch/compare/v2.9.0...v2.10.0) (2026-08-24)
+
+### Dependencies
+
+* **minor:** update dependency pipx:molecule to v26.8.0 ([#64](https://github.com/rolehippie/elasticsearch/issues/64)) ([0d42039](https://github.com/rolehippie/elasticsearch/commit/0d42039b74c29699e9566aba4f8fe50f0b930a01))
+
 ## [2.9.0](https://github.com/rolehippie/elasticsearch/compare/v2.8.0...v2.9.0) (2026-08-17)
 
 ### Dependencies
