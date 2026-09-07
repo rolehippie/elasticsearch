@@ -38,7 +38,7 @@
   register: elasticsearch_key_convert
   changed_when: elasticsearch_key_convert.rc == 0
   ansible.builtin.command:
-    cmd: "gpg --dearmor -o {{ elasticsearch_keyring }} {{ elasticsearch_keyring }}.asc"
+    cmd: "gpg --batch --yes --dearmor -o {{ elasticsearch_keyring }} {{ elasticsearch_keyring }}.asc"
   tags:
     - elasticsearch
 

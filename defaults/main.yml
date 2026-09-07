@@ -6,7 +6,7 @@ elasticsearch_server_version: "8.15"
 elasticsearch_major_version: "{{ elasticsearch_server_version.split('.')[0] }}"
 
 # @var elasticsearch_major_version:description: Architecture of the elasticsearch installation
-elasticsearch_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
+elasticsearch_architecture: "{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else 'arm64' }}"
 
 # @var elasticsearch_openjdk_version:description: Version of OpenJDK to install as part of Elasticsearch
 elasticsearch_openjdk_version: 21
@@ -15,7 +15,7 @@ elasticsearch_openjdk_version: 21
 elasticsearch_cluster_name:
 
 # @var elasticsearch_node_name:description: Name of the node
-elasticsearch_node_name: "{{ ansible_hostname }}"
+elasticsearch_node_name: "{{ ansible_facts['hostname'] }}"
 
 # @var elasticsearch_node_master:description: Let this node work as a master node
 elasticsearch_node_master: true

@@ -95,7 +95,7 @@ elasticsearch_action_destructive_requires_name: false
 #### Default value
 
 ```YAML
-elasticsearch_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
+elasticsearch_architecture: "{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else 'arm64' }}"
 ```
 
 ### elasticsearch_bootstrap_memory_lock
@@ -445,7 +445,7 @@ Name of the node
 #### Default value
 
 ```YAML
-elasticsearch_node_name: '{{ ansible_hostname }}'
+elasticsearch_node_name: '{{ ansible_facts['hostname'] }}'
 ```
 
 ### elasticsearch_node_roles
