@@ -445,7 +445,7 @@ Name of the node
 #### Default value
 
 ```YAML
-elasticsearch_node_name: '{{ ansible_facts['hostname'] }}'
+elasticsearch_node_name: "{{ ansible_facts['hostname'] }}"
 ```
 
 ### elasticsearch_node_roles
